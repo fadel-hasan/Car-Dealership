@@ -1,0 +1,416 @@
+{% extends 'carDealer/base.html' %}
+{% load static %}
+{% load ad_filters %}
+
+{% block full_width_content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div id="carouselDarkVariant" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            {% for image in settings.get_home_images_list %}
+            <button type="button" 
+                    data-bs-target="#carouselDarkVariant" 
+                    data-bs-slide-to="{{ forloop.counter0 }}"
+                    class="{% if forloop.first %}active{% endif %}"
+                    aria-current="{% if forloop.first %}true{% endif %}"
+                    aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+
+        <!-- Carousel Items -->
+        <div class="carousel-inner">
+            {% for image in settings.get_home_images_list %}
+            {% with words=settings.home_words.split %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="5000">
+                <div class="carousel-image-wrapper">
+                    <img src="{{ image }}" class="carousel-image" alt="Slide {{ forloop.counter }}">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <h1 class="display-2 fw-bold animate__animated animate__fadeInUp">
+                                {% if words|length >= forloop.counter %}
+                                    {{ words|slice:forloop.counter|last }}
+                                {% else %}
+                                    Welcome to {{ settings.site_name }}
+                                {% endif %}
+                            </h1>
+                            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
+                                {% if words|length >= forloop.counter|add:1 %}
+                                    {{ words|slice:forloop.counter|last }}
+                                {% else %}
+                                    Discover Your Dream Car Today
+                                {% endif %}
+                            </p>
+                            <a href="{% url 'carDealer:car_list' %}" 
+                               class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
+                                Explore Our Collection
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+            {% empty %}
+            <div class="carousel-item active" data-bs-interval="5000">
+                <div class="carousel-image-wrapper">
+                    <img src="{% static 'images/default-slide.jpg' %}" class="carousel-image" alt="Default Slide">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <h1 class="display-2 fw-bold">Welcome to {{ settings.site_name|default:"Our Dealership" }}</h1>
+                            <p class="lead">Explore our premium collection of vehicles</p>
+                            <a href="{% url 'carDealer:car_list' %}" class="btn btn-primary btn-lg mt-3">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDarkVariant" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselDarkVariant" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Wide Selection</h3>
+                    <p>Choose from a diverse range of vehicles from top brands to find your perfect match.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Quality Assurance</h3>
+                    <p>Every vehicle is thoroughly inspected to meet our high-quality standards.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our team is always ready to assist you with any inquiries, day or night.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Cars Section -->
+<section class="latest-cars-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold">Latest Arrivals</h2>
+            <p class="lead text-muted">Check out the newest additions to our inventory</p>
+        </div>
+        <div class="row g-4">
+            {% for car in latest_cars %}
+            <div class="col-md-4 col-sm-6">
+                <div class="car-card">
+                    <div class="car-image-wrapper">
+                        <img src="{{ car.car_images.0 }}" class="car-image" alt="{{ car }}">
+                    </div>
+                    <div class="car-details">
+                        <h5>{{ car.brand }} {{ car.model }}</h5>
+                        <ul class="car-specs">
+                            <li><i class="fas fa-calendar-alt me-2"></i>Year: {{ car.year }}</li>
+                            <li><i class="fas fa-circle me-2"></i>Color: {{ car.color }}</li>
+                            <li><i class="fas fa-location-arrow me-2"></i>Location: {{ car.city }}-{{ car.country }}</li>
+                        </ul>
+                        <div class="car-footer">
+                            <span class="car-price">${{ car.price }}</span>
+                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Custom Styles -->
+<style>
+    :root {
+        --primary: #0d6efd;
+        --secondary: #6c757d;
+        --dark: #212529;
+        --light: #f8f9fa;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel-inner,
+    .carousel-item,
+    .carousel-image-wrapper {
+        width: 100%;
+        height: 100vh !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: brightness(0.7);
+    }
+
+    .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+        z-index: 1;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: var(--light);
+        z-index: 2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .carousel-caption h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .carousel-caption p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .carousel-caption .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-weight: 500;
+        background-color: var(--primary);
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .carousel-caption .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    /* Features Section */
+    .features-section {
+        background: var(--light);
+    }
+
+    .feature-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    .feature-card p {
+        color: var(--secondary);
+    }
+
+    /* Latest Cars Section */
+    .latest-cars-section {
+        background: #fff;
+    }
+
+    .car-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .car-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .car-image-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .car-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .car-card:hover .car-image {
+        transform: scale(1.05);
+    }
+
+    .car-details {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .car-details h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 1rem;
+    }
+
+    .car-specs {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 1rem;
+        color: var(--secondary);
+        flex-grow: 1;
+    }
+
+    .car-specs li {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .car-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .car-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .car-footer .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .car-footer .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-section,
+        .carousel-inner,
+        .carousel-item,
+        .carousel-image-wrapper {
+            height: 70vh !important;
+        }
+        .carousel-caption h1 {
+            font-size: 2rem;
+        }
+        .carousel-caption p {
+            font-size: 1rem;
+        }
+        .carousel-caption .btn {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        .feature-card {
+            padding: 1.5rem;
+        }
+        .feature-card h3 {
+            font-size: 1.25rem;
+        }
+        .car-details h5 {
+            font-size: 1rem;
+        }
+        .car-price {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<!-- Include Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+{% endblock %}

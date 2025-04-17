@@ -1,0 +1,177 @@
+{% extends 'carDealer/base.html' %}
+{% load query_tags %}
+
+{% block content %}
+<div class="container py-2">
+    <!-- Search Bar -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h2 class="fw-bold mb-0">Available Cars</h2>
+        </div>
+        <div class="col-md-4">
+            <form method="get" class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" class="form-control border-start-0" id="searchInput" name="search" placeholder="Search by brand, model..." value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Filters -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Filters</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        <!-- Brand Filter -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Brand</label>
+                            <select class="form-select" name="brand">
+                                <option value="">All Brands</option>
+                                {% for brand in brands %}
+                                    <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>{{ brand }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Model Filter -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Model</label>
+                            <select class="form-select" name="model">
+                                <option value="">All Models</option>
+                                {% for model in models %}
+                                    <option value="{{ model }}" {% if request.GET.model == model %}selected{% endif %}>{{ model }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- City Filter -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Location</label>
+                            <select class="form-select" name="city">
+                                <option value="">All Cities</option>
+                                {% for city in cities %}
+                                    <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Year Filter -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Year</label>
+                            <select class="form-select" name="year">
+                                <option value="">All Years</option>
+                                {% for year in years %}
+                                    <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Price Range Filter -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Price Range</label>
+                            <div class="d-flex gap-2">
+                                <input type="number" class="form-control" name="min_price" placeholder="Min" value="{{ request.GET.min_price }}">
+                                <input type="number" class="form-control" name="max_price" placeholder="Max" value="{{ request.GET.max_price }}">
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Car Listings -->
+        <div class="col-md-9">
+            <div class="row row-cols-2 row-cols-md-2 g-4">
+                {% for car in cars %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 hover-shadow">
+                            <div class="position-relative">
+                                <img src="{{ car.car_images.0 }}" class="card-img-top" alt="{{ car.brand }} {{ car.model }}" style="height: 200px; object-fit: cover;">
+                                <span class="position-absolute top-0 end-0 badge bg-primary m-2 fs-6">
+                                    ${{ car.price|floatformat:0 }}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">{{ car.brand }} {{ car.model }}</h5>
+                                <p class="card-text text-muted mb-2">
+                                    <small>
+                                        <i class="fas fa-calendar me-1"></i> {{ car.year }}
+                                        <span class="mx-2">|</span>
+                                        <i class="fas fa-map-marker-alt me-1"></i> {{ car.city }}
+                                    </small>
+                                </p>
+                                <p class="card-text">{{ car.description|truncatewords:20 }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0 pt-0">
+                                <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-primary w-100">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">No cars found matching your criteria.</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if cars.has_other_pages %}
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if cars.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% query_string page=cars.previous_page_number %}">&laquo; Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo; Previous</span>
+                            </li>
+                        {% endif %}
+
+                        {% for num in cars.paginator.page_range %}
+                            <li class="page-item {% if cars.number == num %}active{% endif %}">
+                                <a class="page-link" href="?{% query_string page=num %}">{{ num }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if cars.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% query_string page=cars.next_page_number %}">Next &raquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Next &raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for hover effects -->
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.3s ease;
+    }
+    .card-img-top {
+        transition: transform 0.3s ease;
+    }
+    .card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}

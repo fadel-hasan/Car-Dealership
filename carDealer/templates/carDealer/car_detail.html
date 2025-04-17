@@ -1,0 +1,160 @@
+{% extends 'carDealer/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'carDealer:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'carDealer:car_list' %}">Cars</a></li>
+            <li class="breadcrumb-item active">{{ car.brand }} {{ car.model }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div id="carImages" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    {% for image in car.car_images %}
+                        <button type="button" data-bs-target="#carImages" data-bs-slide-to="{{ forloop.counter0 }}" 
+                                {% if forloop.first %}class="active"{% endif %}></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner rounded shadow">
+                    {% for image in car.car_images %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image }}" class="d-block w-100" alt="Car Image {{ forloop.counter }}" 
+                                 style="height: 500px; object-fit: cover;">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carImages" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carImages" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ car.brand }} {{ car.model }} ({{ car.year }})</h2>
+                    <hr>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <p><strong>Brand:</strong> {{ car.brand }}</p>
+                            <p><strong>Model:</strong> {{ car.model }}</p>
+                            <p><strong>Year:</strong> {{ car.year }}</p>
+                            <p><strong>Color:</strong> {{ car.color }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Location:</strong> {{ car.city }}, {{ car.country }}</p>
+                            <p><strong>Price:</strong> ${{ car.price }}</p>
+                            <p><strong>Status:</strong> {% if car.sold %}Sold{% else %}Available{% endif %}</p>
+                            <p><strong>Listed on:</strong> {{ car.created_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                    <h4>Description</h4>
+                    <p class="card-text">{{ car.description }}</p>
+                </div>
+            </div>
+
+            <!-- Approved Complaints Section -->
+            {% if approved_complaints %}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Approved Complaints</h4>
+                        {% for complaint in approved_complaints %}
+                            <div class="complaint-item mb-3 p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="mb-0">{{ complaint.name }}</h6>
+                                    <small class="text-muted">{{ complaint.date|date:"F j, Y" }}</small>
+                                </div>
+                                <p class="mb-0">{{ complaint.content }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if not car.sold %}
+                {% if request.user.id != car.user.id %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4>Submit a Complaint</h4>
+                        <form method="post" action="{% url 'carDealer:submit_complaint' car.id %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Complaint</label>
+                                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+       
+        <div class="col-md-4">
+            {% if request.user.id != car.user.id %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h4>Contact Seller</h4>
+                            <hr>
+                            <div class="d-grid gap-3">
+                                {% if car.user.profile.whatsapp %}
+                                    <a href="https://wa.me/{{ car.user.profile.whatsapp }}" 
+                                       class="btn btn-success btn-lg" target="_blank">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                {% endif %}
+                                <a href="tel:{{ car.user.profile.mobile_number }}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-phone"></i> Call Seller
+                                </a>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Seller Information</h4>
+                    <hr>
+                    <div class="text-center mb-3">
+                        {% if car.user.profile.profile_photo %}
+                            <img src="{{ car.user.profile.profile_photo.url }}" 
+                                 class="rounded-circle" alt="Seller Photo"
+                                 style="width: 100px; height: 100px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                    <p><strong>Name:</strong> {{ car.user.get_full_name|default:car.user.username }}</p>
+                    <p><strong>Location:</strong> {{ car.user.profile.city }}, {{ car.user.userprofile.country }}</p>
+                    <p><strong>number:</strong> {{ car.user.profile.mobile_number }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .complaint-item {
+        background-color: #f8f9fa;
+    }
+    .complaint-item:hover {
+        background-color: #e9ecef;
+    }
+</style>
+{% endblock %}

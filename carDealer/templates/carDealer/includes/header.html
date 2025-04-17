@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'carDealer:home' %}">
+            {% if settings.logo %}
+                <img src="{{ settings.logo.url }}" height="30" alt="Logo">
+            {% endif %}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carDealer:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carDealer:car_list' %}">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carDealer:about' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carDealer:contact' %}">Contact</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'carDealer:profile' %}">
+                                    <i class="fas fa-user me-2"></i> Profile
+                                </a>
+                            </li>
+                            {% if user.is_superuser %}
+                            <li>
+                                <a class="dropdown-item" href="/admin/">
+                                    <i class="fas fa-house me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'carDealer:my_cars' %}">
+                                    <i class="fas fa-car me-2"></i> My Cars
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'carDealer:add_car' %}">
+                                    <i class="fas fa-plus-circle me-2"></i> Add Car
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" action="{% url 'carDealer:logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'carDealer:login' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .dropdown-menu {
+        background-color: #343a40;
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    .dropdown-item {
+        color: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+    }
+    .dropdown-item:hover {
+        background-color: #495057;
+        color: white;
+    }
+    .dropdown-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .nav-link.dropdown-toggle::after {
+        margin-left: 0.5em;
+    }
+</style>

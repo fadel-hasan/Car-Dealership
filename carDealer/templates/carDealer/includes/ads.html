@@ -1,0 +1,39 @@
+{% if location == 'top' and top_ads %}
+<div class="container mb-4">
+    <div class="row">
+        {% for ad in top_ads %}
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
+                    <img src="{{ ad.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ ad.name }}" style="max-height: 120px; object-fit: cover;">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if location == 'bottom' and bottom_ads %}
+<div class="container mt-4">
+    <div class="row">
+        {% for ad in bottom_ads %}
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
+                    <img src="{{ ad.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ ad.name }}" style="max-height: 120px; object-fit: cover;">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if location == 'sidebar' and sidebar_ads %}
+<div class="sidebar-ads">
+    {% for ad in sidebar_ads %}
+        <div class="mb-3">
+            <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
+                <img src="{{ ad.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ ad.name }}" style="max-height: 150px; width: 100%; object-fit: cover;">
+            </a>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}

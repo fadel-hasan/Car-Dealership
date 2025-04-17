@@ -1,0 +1,396 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary-bg: #fff;
+        --secondary-bg: #f8f9fa;
+        --text-color: #333;
+        --border-color: #ddd;
+        --card-bg: #fff;
+        --hover-shadow: rgba(0,0,0,0.1);
+        --input-bg: #fff;
+    }
+
+    [data-theme="dark"] {
+        --primary-bg: #1a1a1a;
+        --secondary-bg: #2d2d2d;
+        --text-color: #e0e0e0;
+        --border-color: #404040;
+        --card-bg: #2d2d2d;
+        --hover-shadow: rgba(0,0,0,0.3);
+        --input-bg: #404040;
+    }
+
+    .complaints-container {
+        padding: 20px;
+        background: var(--primary-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px var(--hover-shadow);
+        margin: 20px;
+        color: var(--text-color);
+        display: flex;
+        gap: 20px;
+    }
+
+    .filters-section {
+        background: var(--secondary-bg);
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .filter-group label {
+        font-weight: bold;
+        color: var(--text-color);
+        font-size: 14px;
+    }
+
+    .filter-group select, .filter-group input {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .filter-group select:focus, .filter-group input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+
+    .search-box {
+        width: 100% !important;
+    }
+
+    .filter-submit {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .filter-submit button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .filter-submit button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .complaints-list {
+        flex: 1;
+    }
+
+    .complaint-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .complaint-card:hover {
+        box-shadow: 0 4px 8px var(--hover-shadow);
+    }
+
+    .complaint-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .complaint-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--text-color);
+    }
+
+    .complaint-date {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 14px;
+    }
+
+    .complaint-content {
+        margin: 15px 0;
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 15px;
+        background: var(--secondary-bg);
+        border-radius: 6px;
+    }
+
+    .complaint-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .complaint-info {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .complaint-info span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .complaint-info i {
+        width: 20px;
+        text-align: center;
+    }
+
+    .car-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .car-link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .btn-approve {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .status-approved {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .pagination a {
+        padding: 8px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        text-decoration: none;
+        color: var(--text-color);
+        background-color: var(--card-bg);
+    }
+
+    .pagination .current {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .no-complaints {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 18px;
+    }
+
+    h1 {
+        color: var(--text-color);
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="complaints-container">
+    <div class="filters-section">
+        <h3>Filters</h3>
+        <form method="get">
+            <div class="filter-group">
+                <label for="status">Status:</label>
+                <select name="status" id="status">
+                    <option value="">All</option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Approved</option>
+                    <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="is_public">Visibility:</label>
+                <select name="is_public" id="is_public">
+                    <option value="">All</option>
+                    <option value="1" {% if is_public_filter == '1' %}selected{% endif %}>Public</option>
+                    <option value="0" {% if is_public_filter == '0' %}selected{% endif %}>Private</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="car">Car:</label>
+                <select name="car" id="car">
+                    <option value="">All Cars</option>
+                    {% for car in cars %}
+                    <option value="{{ car.id }}" {% if car_filter == car.id|stringformat:"i" %}selected{% endif %}>
+                        {{ car.brand }} {{ car.model }} ({{ car.year }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search" class="search-box" value="{{ search_query }}" placeholder="Search complaints...">
+            </div>
+
+            <div class="filter-submit">
+                <button type="submit">Apply Filters</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="complaints-list">
+        <h1>Complaints Management</h1>
+        
+        {% if complaints %}
+            {% for complaint in complaints %}
+            <div class="complaint-card">
+                <div class="complaint-header">
+                    <span class="complaint-title">{{ complaint.name }}</span>
+                    <span class="complaint-date">{{ complaint.date|date:"Y/m/d H:i" }}</span>
+                </div>
+                
+                <div class="complaint-content">
+                    {{ complaint.content }}
+                </div>
+
+                <div class="complaint-footer">
+                    <div class="complaint-info">
+                        <span><i class="fas fa-phone"></i> Phone: {{ complaint.phone }}</span>
+                        <span><i class="fas fa-envelope"></i> Email: {{ complaint.email }}</span>
+                        <span><i class="fas fa-car"></i> Car: 
+                            <a href="{% url 'carDealer:car_detail' complaint.car.id %}" class="car-link" target="_blank">
+                                {{ complaint.car.brand }} {{ complaint.car.model }} ({{ complaint.car.year }})
+                            </a>
+                        </span>
+                        <span class="status-badge status-{{ complaint.status }}">
+                            {% if complaint.status == 'pending' %}Pending
+                            {% elif complaint.status == 'approved' %}Approved
+                            {% else %}Rejected{% endif %}
+                        </span>
+                    </div>
+
+                    <div class="action-buttons">
+                        {% if complaint.status != 'approved' %}
+                        <form method="post" action="{% url 'admin:update_complaint' complaint.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="approved">
+                            <button type="submit" class="btn btn-approve">Approve</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="{% url 'admin:reject_complaint' complaint.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="rejected">
+                            <button type="submit" class="btn btn-reject">Reject</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="pagination">
+                {% if complaints.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ complaints.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ complaints.number }} of {{ complaints.paginator.num_pages }}
+                </span>
+
+                {% if complaints.has_next %}
+                    <a href="?page={{ complaints.next_page_number }}">Next</a>
+                    <a href="?page={{ complaints.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="no-complaints">
+                No complaints available
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 
