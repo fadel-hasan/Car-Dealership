@@ -2,23 +2,21 @@
 {% if location == 'top' and top_ads %}
 <div class="container my-3">
     <div class="ad-banner-container">
-        <div class="ad-banner-content {% if top_ads|length > 4 %}scrolling{% endif %}">
-            {% for ad in top_ads|dictsort:"id"|slice:":30" %}
+        <div class="ad-banner-content {% if top_ads|length > 2 %}scrolling{% endif %}">
+            {% for ad in top_ads|dictsort:"id" %}
                 <div class="ad-item">
                     <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
-                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" 
-                             style="height: 80px; object-fit: contain;">
+                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" >
                     </a>
                 </div>
             {% endfor %}
             
-            {% if top_ads|length > 4 %}
+            {% if top_ads|length > 2 %}
             <!-- Duplicate the ads for continuous scrolling effect (only if enough ads) -->
             {% for ad in top_ads|dictsort:"id"|slice:":30" %}
                 <div class="ad-item">
                     <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
-                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" 
-                             style="height: 80px; object-fit: contain;">
+                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" >
                     </a>
                 </div>
             {% endfor %}
@@ -31,23 +29,21 @@
 {% if location == 'bottom' and bottom_ads %}
 <div class="container my-3">
     <div class="ad-banner-container">
-        <div class="ad-banner-content {% if bottom_ads|length > 4 %}scrolling{% endif %}">
-            {% for ad in bottom_ads|dictsort:"id"|slice:":30" %}
+        <div class="ad-banner-content {% if bottom_ads|length > 2 %}scrolling{% endif %}">
+            {% for ad in bottom_ads|dictsort:"id" %}
                 <div class="ad-item">
                     <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
-                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" 
-                             style="height: 80px; object-fit: contain;">
+                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}">
                     </a>
                 </div>
             {% endfor %}
             
-            {% if bottom_ads|length > 4 %}
+            {% if bottom_ads|length > 2 %}
             <!-- Duplicate the ads for continuous scrolling effect (only if enough ads) -->
-            {% for ad in bottom_ads|dictsort:"id"|slice:":30" %}
+            {% for ad in bottom_ads|dictsort:"id" %}
                 <div class="ad-item">
                     <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
-                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" 
-                             style="height: 80px; object-fit: contain;">
+                        <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" >
                     </a>
                 </div>
             {% endfor %}
@@ -62,78 +58,14 @@
     {% for ad in sidebar_ads %}
         <div class="mb-2">
             <a href="{% url 'carDealer:track_ad_click' ad.id %}" target="_blank" class="d-block ad-link">
-                <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}" 
-                     style="max-height: 100px; width: 100%; object-fit: cover;">
+                <img src="{{ ad.image.url }}" class="img-fluid rounded" alt="{{ ad.name }}"
+                 style="max-height: 150px; width: 100%; object-fit: cover;">
             </a>
         </div>
     {% endfor %}
 </div>
 {% endif %}
 
-<style>
-    /* Continuous scrolling banner styling */
-    .ad-banner-container {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        background: transparent;
-        border-radius: 8px;
-        max-height: 100px;
-    }
-    
-    .ad-banner-content {
-        display: flex;
-        width: max-content;
-        justify-content: center;
-        margin: 0 auto;
-    }
-    
-    /* Only apply animation if class scrolling is present */
-    .ad-banner-content.scrolling {
-        justify-content: flex-start;
-        animation: scrollAds 40s linear infinite;
-    }
-    
-    .ad-item {
-        margin: 0 15px;
-        flex-shrink: 0;
-    }
-    
-    .ad-link img {
-        transition: transform 0.3s ease;
-        height: 80px;
-        width: auto;
-    }
-    
-    .ad-link:hover img {
-        transform: scale(1.05);
-    }
-    
-    @keyframes scrollAds {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-    
-    /* Pause animation on hover */
-    .ad-banner-container:hover .ad-banner-content.scrolling {
-        animation-play-state: paused;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .ad-banner-content:not(.scrolling) {
-            justify-content: flex-start;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            padding-bottom: 10px;
-        }
-    }
-</style>
 
 {% comment %}
 This template displays all ads in a single row that scrolls only when there are more than 4 ads.

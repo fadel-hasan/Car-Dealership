@@ -14,7 +14,6 @@ import os
 from datetime import datetime
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-import json
 
 def get_ads_by_location(location):
     current_time = timezone.now()
@@ -39,7 +38,7 @@ def home(request):
     bottom_ads = grouped_ads.get('home_bottom', [])
     sidebar_ads = grouped_ads.get('sidebar', [])
 
-    latest_cars = Car.objects.filter(sold=False).order_by('-created_at')[:8]
+    latest_cars = Car.objects.filter(sold=False).order_by('-created_at')[:6]
     
     settings = Setting.objects.first()
     
@@ -193,10 +192,10 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
+            form.save()
+            # login(request, user)
             messages.success(request, 'Registration successful!')
-            return redirect('carDealer:home')
+            return redirect('carDealer:login')
         else:
             messages.error(request, 'Registration failed. Please correct the errors.')
     else:
@@ -220,7 +219,7 @@ def user_login(request):
                 messages.error(request, 'Invalid username or password.')
     else:
         form = LoginForm()
-    
+
     return render(request, 'carDealer/login.html', {'form': form})
 
 def about(request):

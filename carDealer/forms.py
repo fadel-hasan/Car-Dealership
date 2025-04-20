@@ -20,7 +20,7 @@ class CustomUserCreationForm(UserCreationForm):
         
         if commit:
             user.save()
-            user_profile = user.userprofile
+            user_profile = user.profile
             user_profile.mobile_number = self.cleaned_data.get('mobile_number')
             user_profile.city = self.cleaned_data.get('city')
             user_profile.country = self.cleaned_data.get('country')
@@ -64,14 +64,45 @@ class ProfileForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
 
 class CarEditForm(forms.ModelForm):
+    
     class Meta:
         model = Car
-        fields = ['brand', 'model', 'year', 'price', 'color', 'country', 'city', 'description', 'sold']
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 4}),
-            'year': forms.NumberInput(attrs={'min': 1900, 'max': 2100}),
-            'price': forms.NumberInput(attrs={'min': 0}),
-        }
+        fields = ['brand', 'model', 'year', 'color', 'country', 'city', 'description', 'sold']
+        
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['brand'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter car brand'
+            })
+            self.fields['model'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter car model'
+            })
+            self.fields['year'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter manufacturing year'
+            })
+            self.fields['color'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter car color'
+            })
+            self.fields['country'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter country'
+            })
+            self.fields['city'].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': 'Enter city'
+            })
+            self.fields['description'].widget.attrs.update({
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter car description'
+            })
+            self.fields['sold'].widget.attrs.update({
+                'class': 'form-check-input'
+            })
 
 class CarImageForm(forms.Form):
     images = forms.FileField(
