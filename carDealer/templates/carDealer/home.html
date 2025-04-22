@@ -191,6 +191,73 @@
     </div>
 </section>
 
+<!-- Statistics Section with Improved Design -->
+<section class="statistics-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-4 fw-bold">Our Numbers Speak</h2>
+                <p class="lead text-muted">Trusted by thousands of customers across the country</p>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-card h-100 shadow rounded-4 p-4 border-0 bg-white">
+                    <div class="stat-icon mb-3">
+                        <span class="icon-circle bg-primary-subtle">
+                            <i class="fas fa-car-side fa-2x text-primary"></i>
+                        </span>
+                    </div>
+                    <h3 class="stat-title h5 mb-2">Available Cars</h3>
+                    <div class="stat-value display-5 fw-bold text-primary mb-2">{{ site_stats.available_cars }}</div>
+                    <p class="stat-desc text-muted small">Ready for new owners</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card h-100 shadow rounded-4 p-4 border-0 bg-white">
+                    <div class="stat-icon mb-3">
+                        <span class="icon-circle bg-success-subtle">
+                            <i class="fas fa-check-circle fa-2x text-success"></i>
+                        </span>
+                    </div>
+                    <h3 class="stat-title h5 mb-2">Sold Cars</h3>
+                    <div class="stat-value display-5 fw-bold text-success mb-2">{{ site_stats.sold_cars }}</div>
+                    <p class="stat-desc text-muted small">Happy customers served</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card h-100 shadow rounded-4 p-4 border-0 bg-white">
+                    <div class="stat-icon mb-3">
+                        <span class="icon-circle bg-info-subtle">
+                            <i class="fas fa-car fa-2x text-info"></i>
+                        </span>
+                    </div>
+                    <h3 class="stat-title h5 mb-2">Total Cars</h3>
+                    <div class="stat-value display-5 fw-bold text-info mb-2">{{ site_stats.total_cars }}</div>
+                    <p class="stat-desc text-muted small">In our inventory</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-card h-100 shadow rounded-4 p-4 border-0 bg-white">
+                    <div class="stat-icon mb-3">
+                        <span class="icon-circle bg-warning-subtle">
+                            <i class="fas fa-users fa-2x text-warning"></i>
+                        </span>
+                    </div>
+                    <h3 class="stat-title h5 mb-2">Trusted Users</h3>
+                    <div class="stat-value display-5 fw-bold text-warning mb-2">{{ site_stats.total_users }}</div>
+                    <p class="stat-desc text-muted small">Active community members</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Include Animate.css for animations -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 {% endblock %}

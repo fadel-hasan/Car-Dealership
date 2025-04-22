@@ -514,3 +514,76 @@ main {
     .car-card {
         overflow: hidden; /* Prevent ribbon overflow */
     }
+
+
+    .statistics-section {
+        background-color: #f8f9fa;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .statistics-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #007bff, #6610f2, #6f42c1, #e83e8c, #dc3545, #fd7e14, #ffc107, #28a745);
+    }
+    
+    .divider-custom {
+        margin: 1.25rem 0 1.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .divider-custom-line {
+        width: 100%;
+        max-width: 7rem;
+        height: 0.25rem;
+        background-color: #dee2e6;
+        border-radius: 1rem;
+        border-color: #dee2e6;
+    }
+    
+    .divider-custom-icon {
+        color: #6c757d;
+        font-size: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .stat-card {
+        transition: all 0.3s ease;
+        border-radius: 15px;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    
+    .icon-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+    
+    .bg-primary-subtle { background-color: rgba(13, 110, 253, 0.1); }
+    .bg-success-subtle { background-color: rgba(25, 135, 84, 0.1); }
+    .bg-info-subtle { background-color: rgba(13, 202, 240, 0.1); }
+    .bg-warning-subtle { background-color: rgba(255, 193, 7, 0.1); }
+    
+    .stat-value {
+        font-weight: 700;
+        line-height: 1;
+    }
+    
+    .rounded-4 {
+        border-radius: 0.75rem!important;
+    }

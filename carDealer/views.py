@@ -42,6 +42,15 @@ def home(request):
     latest_cars_sold = Car.objects.filter(sold=True).order_by('-created_at')[:6]
     settings = Setting.objects.first()
     
+    from django.contrib.auth.models import User
+    
+    site_stats = {
+        'total_cars': Car.objects.count(),
+        'available_cars': Car.objects.filter(sold=False).count(),
+        'sold_cars': Car.objects.filter(sold=True).count(),
+        'total_users': User.objects.count(),
+    }
+    
     context = {
         'top_ads': top_ads,
         'bottom_ads': bottom_ads,
@@ -49,6 +58,7 @@ def home(request):
         'latest_cars': latest_cars,
         'latest_cars_sold': latest_cars_sold,
         'settings': settings,
+        'site_stats': site_stats, 
     }
     return render(request, 'carDealer/home.html', context)
 
