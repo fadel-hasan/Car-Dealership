@@ -1,5 +1,5 @@
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
 from django.utils import timezone
 from datetime import timedelta
@@ -10,31 +10,16 @@ from django.contrib import messages
 
 @staff_member_required
 def admin_statistics(request):
-    total_cars = Car.objects.count()
-    sold_cars = Car.objects.filter(sold=True).count()
-    active_cars = Car.objects.filter(sold=False).count()
-    total_complaints = Complaint.objects.count()
-    active_ads = Ad.objects.filter(end_date__gte=timezone.now()).count()
-    
-    complaints_by_status = Complaint.objects.values('status').annotate(count=Count('id'))
-    
-    cars_by_brand = Car.objects.values('brand').annotate(count=Count('id')).order_by('-count')[:5]
-    
-    thirty_days_ago = timezone.now() - timedelta(days=30)
-    recent_sales = Car.objects.filter(
-        sold=True,
-        created_at__gte=thirty_days_ago
-    ).count()
-    
+
     context = {
-        'total_cars': total_cars,
-        'sold_cars': sold_cars,
-        'active_cars': active_cars,
-        'total_complaints': total_complaints,
-        'active_ads': active_ads,
-        'complaints_by_status': complaints_by_status,
-        'cars_by_brand': cars_by_brand,
-        'recent_sales': recent_sales,
+        'total_cars': Car.objects.total_cars(),
+        'sold_cars': Car.objects.sold_cars(),
+        'active_cars': Car.objects.active_cars(),
+        'total_complaints': Complaint.objects.total_complaints(),
+        'active_ads': Ad.objects.active_ads(),
+        'complaints_by_status': Complaint.objects.comlaints_by_status(),
+        'cars_by_brand': Car.objects.cars_by_brand(),
+        'recent_sales': Car.objects.recent_sales(),
     }
     
     return render(request, 'admin/statistics.html', context)
@@ -83,7 +68,7 @@ def update_complaint(request, complaint_id):
         else:
             messages.error(request, 'Invalid status.')
     
-    return redirect('carDealer:manage_complaints')
+    return redirect('admin:complaints')
 
 
 @staff_member_required
@@ -102,4 +87,14 @@ def reject_complaint(request, complaint_id):
             except Exception as e:
                 messages.error(request, f'Error {str(e)}')
         
-        return redirect('carDealer:manage_complaints')
+        return redirect('admin:complaints')
+    
+    
+@staff_member_required
+def toggle_public_complaint(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    if request.method == "POST":
+        complaint.is_public = int(request.POST.get("is_public"))
+        complaint.save()
+        messages.success(request, "Public visibility updated successfully.")
+    return redirect("admin:complaints")

@@ -39,7 +39,7 @@ def home(request):
     sidebar_ads = grouped_ads.get('sidebar', [])
 
     latest_cars = Car.objects.filter(sold=False).order_by('-created_at')[:6]
-    
+    latest_cars_sold = Car.objects.filter(sold=True).order_by('-created_at')[:6]
     settings = Setting.objects.first()
     
     context = {
@@ -47,6 +47,7 @@ def home(request):
         'bottom_ads': bottom_ads,
         'sidebar_ads': sidebar_ads,
         'latest_cars': latest_cars,
+        'latest_cars_sold': latest_cars_sold,
         'settings': settings,
     }
     return render(request, 'carDealer/home.html', context)
@@ -100,13 +101,17 @@ def car_list(request):
 
 def car_detail(request, car_id):
     car = get_object_or_404(Car, id=car_id)
-    
     approved_complaints = Complaint.objects.filter(
         car=car,
         status='approved',
         is_public=True
     ).order_by('-date')
     
+    if request.user.is_superuser or (request.user.is_authenticated and request.user == car.user):
+        approved_complaints = Complaint.objects.filter(
+            car=car,
+            status='approved'
+        ).order_by('-date')
     sidebar_ads = get_ads_by_location('sidebar')
     
     context = {

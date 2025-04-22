@@ -150,7 +150,46 @@
     </div>
 </section>
 
-
+<!-- Latest Sold Cars Section -->
+<section class="latest-cars-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-4 fw-bold">Latest Sold Cars</h2>
+            <p class="lead text-muted">Explore recently sold vehicles from our inventory</p>
+        </div>
+        <div class="row g-4">
+            {% for car in latest_cars_sold %}
+            <div class="col-md-4 col-sm-6">
+                <div class="car-card position-relative">
+                    <!-- Red Ribbon for Sold Status -->
+                    <div class="sold-ribbon">
+                        Sold
+                    </div>
+                    <div class="car-image-wrapper">
+                        <img src="{{ car.car_images.0 }}" class="car-image" alt="{{ car.brand }} {{ car.model }}">
+                    </div>
+                    <div class="car-details">
+                        <h5>{{ car.brand }} {{ car.model }}</h5>
+                        <ul class="car-specs">
+                            <li><i class="fas fa-calendar-alt me-2"></i>Year: {{ car.year }}</li>
+                            <li><i class="fas fa-circle me-2"></i>Color: {{ car.color }}</li>
+                            <li><i class="fas fa-location-arrow me-2"></i>Location: {{ car.city }}-{{ car.country }}</li>
+                        </ul>
+                        <div class="car-footer">
+                            <span class="car-price">${{ car.price }}</span>
+                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No sold cars available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 <!-- Include Animate.css for animations -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />

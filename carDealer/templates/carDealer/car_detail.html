@@ -16,11 +16,14 @@
             <div id="carImages" class="carousel slide mb-4" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     {% for image in car.car_images %}
-                        <button type="button" data-bs-target="#carImages" data-bs-slide-to="{{ forloop.counter0 }}" 
-                                {% if forloop.first %}class="active"{% endif %}></button>
+                    <button type="button" data-bs-target="#carImages" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active"{% endif %}></button>
                     {% endfor %}
                 </div>
                 <div class="carousel-inner rounded shadow">
+                    <div class="sold-ribbon">
+                        Sold
+                    </div>
                     {% for image in car.car_images %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
                             <img src="{{ image }}" class="d-block w-100" alt="Car Image {{ forloop.counter }}" 
@@ -105,7 +108,7 @@
         </div>
        
         <div class="col-md-4">
-            {% if request.user.id != car.user.id %}
+            {% if request.user.id != car.user.id and not car.sold%}
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="card shadow-sm mb-4">

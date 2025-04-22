@@ -2,7 +2,31 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db.models import Count
+from django.utils import timezone
+from datetime import timedelta
 
+
+class CarManager(models.Manager):
+    def total_cars(self):
+        return self.count()
+
+    def sold_cars(self):
+        return self.filter(sold=True).count()
+
+    def active_cars(self):
+        return self.filter(sold=False).count()
+    
+    def cars_by_brand(self):
+        return self.values('brand').annotate(count=Count('id')).order_by('-count')
+    
+    def recent_sales(self):
+        thirty_days_ago = timezone.now() - timedelta(days=30)
+        return self.filter(
+            sold=True,
+            created_at__gte=thirty_days_ago
+        ).count()
+    
 class Car(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     brand = models.CharField(max_length=100)
@@ -17,9 +41,18 @@ class Car(models.Model):
     city = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    objects = CarManager()
+    
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year})"
 
+
+class ComplaintManager(models.Manager):
+    def total_complaints(self):
+        return self.count()
+    def comlaints_by_status(self):
+        return self.values('status').annotate(count=Count('id')).order_by('status')
+      
 class Complaint(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -34,9 +67,16 @@ class Complaint(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     car = models.ForeignKey(Car, on_delete=models.SET_NULL, null=True)
 
+    objects = ComplaintManager()
+    
     def __str__(self):
         return f"Complaint by {self.name}"
 
+class AdManager(models.Manager):
+    def active_ads(self):
+        return self.filter(end_date__gte=timezone.now()).count()
+    
+    
 class Ad(models.Model):
     STATUS_CHOICES = [
         ('home_top', 'Home_Top'),
@@ -51,6 +91,7 @@ class Ad(models.Model):
     end_date = models.DateTimeField()
     location_ad = models.CharField(max_length=20,choices=STATUS_CHOICES)
 
+    objects = AdManager()
     def __str__(self):
         return self.name
 

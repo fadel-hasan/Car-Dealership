@@ -16,6 +16,7 @@ class CustomAdminSite(admin.AdminSite):
             path('complaints/', self.admin_view(manage_complaints), name='complaints'),
             path('complaints/<int:complaint_id>/update/', self.admin_view(update_complaint), name='update_complaint'),
             path('complaints/<int:complaint_id>/reject/', self.admin_view(reject_complaint), name='reject_complaint'),
+            path("complaints/<int:complaint_id>/toggle-public/", self.admin_view(toggle_public_complaint), name="toggle_public_complaint"),
         ]
         
         return custom_urls + urls

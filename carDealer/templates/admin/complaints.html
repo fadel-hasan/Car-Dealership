@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block extrastyle %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
     :root {
         --primary-bg: #fff;
@@ -324,9 +326,8 @@
 
     <div class="complaints-list">
         <h1>Complaints Management</h1>
-        
         {% if complaints %}
-            {% for complaint in complaints %}
+        {% for complaint in complaints %}
             <div class="complaint-card">
                 <div class="complaint-header">
                     <span class="complaint-title">{{ complaint.name }}</span>
@@ -346,6 +347,7 @@
                                 {{ complaint.car.brand }} {{ complaint.car.model }} ({{ complaint.car.year }})
                             </a>
                         </span>
+                        <span><i class="fas fa-check-square"></i> show public: {%if complaint.is_public == 1 %}<span class="text-primary font-weight-bold"> Yes </span>{% else %}<span class="text-danger font-weight-bold"> No</span>{%endif%}</span>
                         <span class="status-badge status-{{ complaint.status }}">
                             {% if complaint.status == 'pending' %}Pending
                             {% elif complaint.status == 'approved' %}Approved
@@ -354,10 +356,18 @@
                     </div>
 
                     <div class="action-buttons">
+                        <form method="post" action="{% url 'admin:toggle_public_complaint' complaint.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_public" value="{% if complaint.is_public == 1 %}0{% else %}1{% endif %}">
+                            <button type="submit" class="btn btn-toggle-public">
+                                {% if complaint.is_public == 1 %}Hide from Public{% else %}Show to Public{% endif %}
+                            </button>
+                        </form>
                         {% if complaint.status != 'approved' %}
                         <form method="post" action="{% url 'admin:update_complaint' complaint.id %}" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="status" value="approved">
+                            <input type="radio" name="is_public", value="{{complaint.is_public}}">
                             <button type="submit" class="btn btn-approve">Approve</button>
                         </form>
                         {% endif %}
