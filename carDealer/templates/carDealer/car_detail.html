@@ -1,13 +1,13 @@
 {% extends 'carDealer/base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <div class="container">
     <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" style="direction:ltr;">
             <li class="breadcrumb-item"><a href="{% url 'carDealer:home' %}">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'carDealer:car_list' %}">Cars</a></li>
-            <li class="breadcrumb-item active">{{ car.brand }} {{ car.model }}</li>
+            <li class="breadcrumb-item active">Details for {{ car.brand }} {{ car.model }}</li>
         </ol>
     </nav>
 
@@ -20,14 +20,17 @@
                     {% if forloop.first %}class="active"{% endif %}></button>
                     {% endfor %}
                 </div>
+                
                 <div class="carousel-inner rounded shadow">
+                    {% if car.sold %}
                     <div class="sold-ribbon">
-                        Sold
+                     {% trans "Sold" %}   
                     </div>
+                    {% endif %}
                     {% for image in car.car_images %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ image }}" class="d-block w-100" alt="Car Image {{ forloop.counter }}" 
-                                 style="height: 500px; object-fit: cover;">
+                            <img src="{{ image }}" class="d-block w-100" alt="{% trans "Car Image" %} {{ forloop.counter }}" 
+                                 >
                         </div>
                     {% endfor %}
                 </div>
@@ -41,24 +44,24 @@
 
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h2 class="card-title">{{ car.brand }} {{ car.model }} ({{ car.year }})</h2>
+                    <h2 class="card-title">{% trans "Car Details:" %} {{ car.brand }} {{ car.model }} ({{ car.year }})</h2>
                     <hr>
                     <div class="row mb-4">
                         <div class="col-md-6">
-                            <p><strong>Brand:</strong> {{ car.brand }}</p>
-                            <p><strong>Model:</strong> {{ car.model }}</p>
-                            <p><strong>Year:</strong> {{ car.year }}</p>
-                            <p><strong>Color:</strong> {{ car.color }}</p>
+                            <p><strong>{% trans "Brand:" %} </strong> {{ car.brand }}</p>
+                            <p><strong>{% trans "Model:" %}</strong> {{ car.model }}</p>
+                            <p><strong>{% trans "Year:" %}</strong> {{ car.year }}</p>
+                            <p><strong>{% trans "Color:" %}</strong> {{ car.color }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Location:</strong> {{ car.city }}, {{ car.country }}</p>
-                            <p><strong>Price:</strong> ${{ car.price }}</p>
-                            <p><strong>Status:</strong> {% if car.sold %}Sold{% else %}Available{% endif %}</p>
-                            <p><strong>Listed on:</strong> {{ car.created_at|date:"F d, Y" }}</p>
+                            <p><strong>{% trans "Location:" %}</strong> {{ car.city }}, {{ car.country }}</p>
+                            <p><strong>{% trans "Price:" %}</strong> ${{ car.price }}</p>
+                            <p><strong>{% trans "Status:" %}</strong> {% if car.sold %}{% trans "Sold" %}{% else %}{% trans "Available" %}{% endif %}</p>
+                            <p><strong>{% trans "Listed on:" %}</strong> {{ car.created_at|date:"F d, Y" }}</p>
                         </div>
                     </div>
-                    <h4>Description</h4>
-                    <p class="card-text">{{ car.description }}</p>
+                    <h4>{% trans "Description" %}</h4>
+                    <p class="card-text">{% trans "Description:" %} {{ car.description }}</p>
                 </div>
             </div>
 
@@ -66,12 +69,12 @@
             {% if approved_complaints %}
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">Approved Complaints</h4>
+                        <h4 class="card-title">{% trans "Approved Complaints" %}</h4>
                         {% for complaint in approved_complaints %}
                             <div class="complaint-item mb-3 p-3 border rounded">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="mb-0">{{ complaint.name }}</h6>
-                                    <small class="text-muted">{{ complaint.date|date:"F j, Y" }}</small>
+                                    <h6 class="mb-0">{% trans "From:" %} {{ complaint.name }}</h6>
+                                    <small class="text-muted">{% trans "Date:" %} {{ complaint.date|date:"F j, Y" }}</small>
                                 </div>
                                 <p class="mb-0">{{ complaint.content }}</p>
                             </div>
@@ -84,22 +87,22 @@
                 {% if request.user.id != car.user.id %}
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h4>Submit a Complaint</h4>
+                        <h4>{% trans "Submit a Complaint" %}</h4>
                         <form method="post" action="{% url 'carDealer:submit_complaint' car.id %}">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label">{% trans "Name" %}</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
+                                <label for="phone" class="form-label">{% trans "Phone" %}</label>
                                 <input type="tel" class="form-control" id="phone" name="phone" required>
                             </div>
                             <div class="mb-3">
-                                <label for="content" class="form-label">Complaint</label>
+                                <label for="content" class="form-label">{% trans "Complaint" %}</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                            <button type="submit" class="btn btn-primary">{% trans "Submit Complaint" %}</button>
                         </form>
                     </div>
                 </div>
@@ -113,17 +116,17 @@
                 <div class="card-body">
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
-                            <h4>Contact Seller</h4>
+                            <h4>{% trans "Contact Seller" %}</h4>
                             <hr>
                             <div class="d-grid gap-3">
                                 {% if car.user.profile.whatsapp %}
                                     <a href="https://wa.me/{{ car.user.profile.whatsapp }}" 
                                        class="btn btn-success btn-lg" target="_blank">
-                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                        <i class="fab fa-whatsapp"></i> {% trans "WhatsApp" %}
                                     </a>
                                 {% endif %}
                                 <a href="tel:{{ car.user.profile.mobile_number }}" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-phone"></i> Call Seller
+                                    <i class="fas fa-phone"></i> {% trans "Call Seller" %}
                                 </a>
                             </div>
                          </div>
@@ -134,7 +137,7 @@
 
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h4>Seller Information</h4>
+                    <h4>{% trans "Seller Information" %}</h4>
                     <hr>
                     <div class="text-center mb-3">
                         {% if car.user.profile.profile_photo %}
@@ -143,9 +146,8 @@
                                  style="width: 100px; height: 100px; object-fit: cover;">
                         {% endif %}
                     </div>
-                    <p><strong>Name:</strong> {{ car.user.get_full_name|default:car.user.username }}</p>
-                    <p><strong>Location:</strong> {{ car.user.profile.city }}, {{ car.user.userprofile.country }}</p>
-                    <p><strong>number:</strong> {{ car.user.profile.mobile_number }}</p>
+                    <p><strong>{% trans "Name:" %}</strong> {{ car.user.get_full_name|default:car.user.username }}</p>
+                    <p><strong>{% trans "Location:" %}</strong> {{ car.user.profile.city }}, {{ car.user.profile.country }}</p>
                 </div>
             </div>
         </div>
@@ -153,3 +155,5 @@
 </div>
 
 {% endblock %}
+
+

@@ -21,8 +21,14 @@ from carDealer.admin import admin_site
 from django.urls import path, include
 from carDealer import admin_views
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
+]
+
+
+urlpatterns += i18n_patterns(
     path("admin/", admin_site.urls,name='admin'),
-    path('', include('carDealer.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()
+    path('', include('carDealer.urls')),prefix_default_language=True
+)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + debug_toolbar_urls()

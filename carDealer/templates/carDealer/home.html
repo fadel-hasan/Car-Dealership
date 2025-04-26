@@ -1,6 +1,8 @@
 {% extends 'carDealer/base.html' %}
 {% load static %}
 {% load ad_filters %}
+{% load split_tags%}
+{% load i18n %}
 
 {% block full_width_content %}
 <!-- Hero Section -->
@@ -21,7 +23,7 @@
         <!-- Carousel Items -->
         <div class="carousel-inner">
             {% for image in settings.get_home_images_list %}
-            {% with words=settings.home_words.split %}
+            {% with words=settings.home_words|split:"," %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="5000">
                 <div class="carousel-image-wrapper">
                     <img src="{{ image }}" class="carousel-image" alt="Slide {{ forloop.counter }}">
@@ -30,21 +32,21 @@
                         <div class="container">
                             <h1 class="display-2 fw-bold animate__animated animate__fadeInUp">
                                 {% if words|length >= forloop.counter %}
-                                    {{ words|slice:forloop.counter|last }}
+                                    {{ words|slice:forloop.counter|last|striptags }}
                                 {% else %}
-                                    Welcome to {{ settings.site_name }}
+                                   {% trans "Welcome to" %}  {{ settings.site_name }}
                                 {% endif %}
                             </h1>
-                            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
+                            {% comment %} <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
                                 {% if words|length >= forloop.counter|add:1 %}
-                                    {{ words|slice:forloop.counter|last }}
+                                    {{ words|slice:forloop.counter|last|striptags }}
                                 {% else %}
-                                    Discover Your Dream Car Today
+                                    {% trans "Discover Your Dream Car Today" %}
                                 {% endif %}
-                            </p>
+                            </p> {% endcomment %}
                             <a href="{% url 'carDealer:car_list' %}" 
                                class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
-                                Explore Our Collection
+                               {% trans "Explore Our Collection" %}
                             </a>
                         </div>
                     </div>
@@ -58,8 +60,8 @@
                     <div class="carousel-overlay"></div>
                     <div class="carousel-caption">
                         <div class="container">
-                            <h1 class="display-2 fw-bold">Welcome to {{ settings.site_name|default:"Our Dealership" }}</h1>
-                            <p class="lead">Explore our premium collection of vehicles</p>
+                            <h1 class="display-2 fw-bold">{%trans "Welcome to"%} {{ settings.site_name|default:"Our Dealership" }}</h1>
+                            <p class="lead">{% trans "Explore our premium collection of vehicles"%}</p>
                             <a href="{% url 'carDealer:car_list' %}" class="btn btn-primary btn-lg mt-3">Explore Now</a>
                         </div>
                     </div>
@@ -91,8 +93,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-car"></i>
                     </div>
-                    <h3>Wide Selection</h3>
-                    <p>Choose from a diverse range of vehicles from top brands to find your perfect match.</p>
+                    <h3>{% trans "Wide Selection" %}</h3>
+                    <p>{% trans "Choose from a diverse range of vehicles from top brands to find your perfect match." %} </p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -100,8 +102,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <h3>Quality Assurance</h3>
-                    <p>Every vehicle is thoroughly inspected to meet our high-quality standards.</p>
+                    <h3> {% trans "Quality Assurance" %} </h3>
+                    <p>{% trans "Every vehicle is thoroughly inspected to meet our high-quality standards." %} </p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -109,8 +111,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our team is always ready to assist you with any inquiries, day or night.</p>
+                    <h3>{% trans "24/7 Support" %} </h3>
+                    <p>{% trans "Our team is always ready to assist you with any inquiries, day or night." %} </p>
                 </div>
             </div>
         </div>
@@ -121,8 +123,8 @@
 <section class="latest-cars-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold">Latest Arrivals</h2>
-            <p class="lead text-muted">Check out the newest additions to our inventory</p>
+            <h2 class="display-4 fw-bold">{% trans "Latest Arrivals" %} </h2>
+            <p class="lead text-muted">{% trans "Check out the newest additions to our inventory" %} </p>
         </div>
         <div class="row g-4">
             {% for car in latest_cars %}
@@ -134,13 +136,14 @@
                     <div class="car-details">
                         <h5>{{ car.brand }} {{ car.model }}</h5>
                         <ul class="car-specs">
-                            <li><i class="fas fa-calendar-alt me-2"></i>Year: {{ car.year }}</li>
-                            <li><i class="fas fa-circle me-2"></i>Color: {{ car.color }}</li>
-                            <li><i class="fas fa-location-arrow me-2"></i>Location: {{ car.city }}-{{ car.country }}</li>
+                            <li><i class="fas fa-calendar-alt me-2"></i>{% trans "Year:" %}  {{ car.year }}</li>
+                            <li><i class="fas fa-circle me-2"></i>{% trans "Color:" %}  {{ car.color }}</li>
+                            <li><i class="fas fa-location-arrow me-2"></i>{% trans "Location:" %}  {{ car.city }}-{{ car.country }}</li>
                         </ul>
                         <div class="car-footer">
                             <span class="car-price">${{ car.price }}</span>
-                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">View Details</a>
+                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">{% trans "View Details" %} 
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -154,8 +157,8 @@
 <section class="latest-cars-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold">Latest Sold Cars</h2>
-            <p class="lead text-muted">Explore recently sold vehicles from our inventory</p>
+            <h2 class="display-4 fw-bold">{% trans "Latest Sold Cars" %} </h2>
+            <p class="lead text-muted">{% trans " Explore recently sold vehicles from our inventory" %}</p>
         </div>
         <div class="row g-4">
             {% for car in latest_cars_sold %}
@@ -163,7 +166,7 @@
                 <div class="car-card position-relative">
                     <!-- Red Ribbon for Sold Status -->
                     <div class="sold-ribbon">
-                        Sold
+                       {% trans "Sold" %} 
                     </div>
                     <div class="car-image-wrapper">
                         <img src="{{ car.car_images.0 }}" class="car-image" alt="{{ car.brand }} {{ car.model }}">
@@ -171,20 +174,20 @@
                     <div class="car-details">
                         <h5>{{ car.brand }} {{ car.model }}</h5>
                         <ul class="car-specs">
-                            <li><i class="fas fa-calendar-alt me-2"></i>Year: {{ car.year }}</li>
-                            <li><i class="fas fa-circle me-2"></i>Color: {{ car.color }}</li>
-                            <li><i class="fas fa-location-arrow me-2"></i>Location: {{ car.city }}-{{ car.country }}</li>
+                            <li><i class="fas fa-calendar-alt me-2"></i>{% trans "Year:" %}  {{ car.year }}</li>
+                            <li><i class="fas fa-circle me-2"></i>{% trans "Color:" %}  {{ car.color }}</li>
+                            <li><i class="fas fa-location-arrow me-2"></i>{% trans "Location:" %}  {{ car.city }}-{{ car.country }}</li>
                         </ul>
                         <div class="car-footer">
                             <span class="car-price">${{ car.price }}</span>
-                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">View Details</a>
+                            <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-outline-primary">{% trans "View Details" %}</a>
                         </div>
                     </div>
                 </div>
             </div>
             {% empty %}
             <div class="col-12 text-center">
-                <p class="text-muted">No sold cars available.</p>
+                <p class="text-muted">{% trans "No sold cars available." %} </p>
             </div>
             {% endfor %}
         </div>
@@ -196,8 +199,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center mb-5">
-                <h2 class="display-4 fw-bold">Our Numbers Speak</h2>
-                <p class="lead text-muted">Trusted by thousands of customers across the country</p>
+                <h2 class="display-4 fw-bold">{% trans "Our Numbers Speak" %} </h2>
+                <p class="lead text-muted">{% trans "Trusted by thousands of customers across the country" %} </p>
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-chart-line"></i></div>
@@ -213,9 +216,9 @@
                             <i class="fas fa-car-side fa-2x text-primary"></i>
                         </span>
                     </div>
-                    <h3 class="stat-title h5 mb-2">Available Cars</h3>
+                    <h3 class="stat-title h5 mb-2">{% trans "Available Cars" %} </h3>
                     <div class="stat-value display-5 fw-bold text-primary mb-2">{{ site_stats.available_cars }}</div>
-                    <p class="stat-desc text-muted small">Ready for new owners</p>
+                    <p class="stat-desc text-muted small">{% trans "Ready for new owners" %} </p>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
@@ -225,9 +228,9 @@
                             <i class="fas fa-check-circle fa-2x text-success"></i>
                         </span>
                     </div>
-                    <h3 class="stat-title h5 mb-2">Sold Cars</h3>
+                    <h3 class="stat-title h5 mb-2">{% trans "Sold Cars" %} </h3>
                     <div class="stat-value display-5 fw-bold text-success mb-2">{{ site_stats.sold_cars }}</div>
-                    <p class="stat-desc text-muted small">Happy customers served</p>
+                    <p class="stat-desc text-muted small">{% trans "Happy customers served" %} </p>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
@@ -237,9 +240,9 @@
                             <i class="fas fa-car fa-2x text-info"></i>
                         </span>
                     </div>
-                    <h3 class="stat-title h5 mb-2">Total Cars</h3>
+                    <h3 class="stat-title h5 mb-2">{% trans "Total Cars" %} </h3>
                     <div class="stat-value display-5 fw-bold text-info mb-2">{{ site_stats.total_cars }}</div>
-                    <p class="stat-desc text-muted small">In our inventory</p>
+                    <p class="stat-desc text-muted small">{% trans "In our inventory" %} </p>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
@@ -249,9 +252,9 @@
                             <i class="fas fa-users fa-2x text-warning"></i>
                         </span>
                     </div>
-                    <h3 class="stat-title h5 mb-2">Trusted Users</h3>
+                    <h3 class="stat-title h5 mb-2">{% trans "Trusted Users" %} </h3>
                     <div class="stat-value display-5 fw-bold text-warning mb-2">{{ site_stats.total_users }}</div>
-                    <p class="stat-desc text-muted small">Active community members</p>
+                    <p class="stat-desc text-muted small">{% trans "Active community members" %} </p>
                 </div>
             </div>
         </div>

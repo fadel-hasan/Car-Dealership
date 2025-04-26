@@ -2,11 +2,15 @@ from django.contrib import admin
 from .models import Car, Complaint, Ad, Setting
 from django.utils.html import format_html
 from django.urls import path,reverse
-from . import admin_views
 from .admin_views import *
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponseRedirect
 from django import forms
+from django.utils.translation import gettext as _
+import os
+from datetime import datetime
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from .models import Setting
 
 class CustomAdminSite(admin.AdminSite):
     def get_urls(self):
@@ -30,19 +34,19 @@ class CustomAdminSite(admin.AdminSite):
         if app_label is None:
             app_list.append(
                 {
-                    'name': 'Management',
-                    'app_label': 'management',
+                    'name': _('Management'),
+                    'app_label': _('management'),
                     'app_url': '#',
                     'models': [
                         {
-                            'name': 'Statistics',
-                            'object_name': 'statistics',
+                            'name': _('Statistics'),
+                            'object_name': _('statistics'),
                             'admin_url': reverse('admin:statistics'),
                             'view_only': True,
                         },
                         {
-                            'name': 'Complaints',
-                            'object_name': 'complaints',
+                            'name': _('Complaints'),
+                            'object_name': _('complaints'),
                             'admin_url': reverse('admin:complaints'),
                             'view_only': True,
                         }
@@ -99,25 +103,27 @@ class SettingAdminForm(forms.ModelForm):
     
     def save(self, commit=True):
         instance = super().save(commit=False)
-        import os
-        from datetime import datetime
-        from django.conf import settings
-        from django.core.files.storage import FileSystemStorage
         images = []
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'site'))
+
         for i in range(1, 4):
             image = self.cleaned_data.get(f'home_image_{i}')
-            fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'site'))
             if image:
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                filename = f"{timestamp}_{image.name}"
-                    
-                saved_path = fs.save(filename, image)
-                    
-                relative_path = f'/media/site/{filename}'
-                images.append(relative_path)
+                if isinstance(image, str):
+                    # If image is a string (existing path), use it directly
+                    images.append(image)
+                else:
+                    # If image is a file object (new upload), save it
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    filename = f"{timestamp}_{image.name}"
+                    saved_path = fs.save(filename, image)
+                    relative_path = f'/media/site/{filename}'
+                    images.append(relative_path)
         
         if images:
             instance.home_images = ','.join(str(image) for image in images)
+        else:
+            instance.home_images = ''  # Clear the field if no images are provided
         
         if commit:
             instance.save()

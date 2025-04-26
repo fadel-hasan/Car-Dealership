@@ -1,0 +1,795 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-26 13:09+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\carDealer\admin.py:34
+
+msgid "Management"
+msgstr "إدارة"
+
+#: .\carDealer\admin.py:35
+msgid "management"
+msgstr "إدارة"
+
+#: .\carDealer\admin.py:39 .\carDealer\templates\carDealer\profile.html:34
+msgid "Statistics"
+msgstr "إحصائيات"
+
+#: .\carDealer\admin.py:40
+
+msgid "statistics"
+msgstr "إحصائيات"
+
+#: .\carDealer\admin.py:45
+
+msgid "Complaints"
+msgstr "الشكاوي"
+
+#: .\carDealer\admin.py:46
+
+msgid "complaints"
+msgstr "الشكاوي"
+
+#: .\carDealer\templates\admin\complaints.html:284
+#: .\carDealer\templates\carDealer\car_list.html:27
+msgid "Filters"
+msgstr "المرشحات"
+
+#: .\carDealer\templates\admin\complaints.html:287
+#: .\carDealer\templates\carDealer\car_detail.html:56
+#: .\carDealer\templates\carDealer\my_cars.html:31
+msgid "Status:"
+msgstr "حالة:"
+
+#: .\carDealer\templates\admin\complaints.html:289
+#: .\carDealer\templates\admin\complaints.html:299
+msgid "All"
+msgstr "الجميع"
+
+#: .\carDealer\templates\admin\complaints.html:290
+#: .\carDealer\templates\admin\complaints.html:353
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: .\carDealer\templates\admin\complaints.html:291
+#: .\carDealer\templates\admin\complaints.html:354
+msgid "Approved"
+msgstr "تمت الموافقة"
+
+#: .\carDealer\templates\admin\complaints.html:292
+#: .\carDealer\templates\admin\complaints.html:355
+msgid "Rejected"
+msgstr "تم الرفض"
+
+#: .\carDealer\templates\admin\complaints.html:297
+msgid "Visibility:"
+msgstr "الرؤية:"
+
+#: .\carDealer\templates\admin\complaints.html:306
+#: .\carDealer\templates\admin\complaints.html:346
+msgid "Car:"
+msgstr "سيارة:"
+
+#: .\carDealer\templates\admin\complaints.html:308
+msgid "All Cars"
+msgstr "جميع السيارات"
+
+#: .\carDealer\templates\admin\complaints.html:318
+msgid "Search:"
+msgstr "البحث:"
+
+#: .\carDealer\templates\admin\complaints.html:323
+#: .\carDealer\templates\carDealer\car_list.html:85
+msgid "Apply Filters"
+msgstr "تطبيق المرشحات"
+
+#: .\carDealer\templates\admin\complaints.html:329
+msgid "Complaints Management"
+msgstr "إدارة الشكاوى"
+
+#: .\carDealer\templates\admin\complaints.html:344
+msgid "Phone:"
+msgstr "هاتف:"
+
+#: .\carDealer\templates\admin\complaints.html:345
+msgid "Email:"
+msgstr "بريد إلكتروني:"
+
+#: .\carDealer\templates\admin\complaints.html:351
+msgid "show public:"
+msgstr "عرض للعامة:"
+
+#: .\carDealer\templates\admin\complaints.html:364
+msgid "Hide from Public"
+msgstr "اخفاء عن العامة"
+
+#: .\carDealer\templates\admin\complaints.html:364
+msgid "Show to Public"
+msgstr "عرض للعامة"
+
+#: .\carDealer\templates\admin\complaints.html:372
+msgid "Approve"
+msgstr "قبول"
+
+#: .\carDealer\templates\admin\complaints.html:378
+msgid "Reject"
+msgstr "رفض"
+
+#: .\carDealer\templates\admin\complaints.html:387
+msgid "First"
+msgstr "أولاً"
+
+#: .\carDealer\templates\admin\complaints.html:388
+#: .\carDealer\templates\carDealer\car_list.html:133
+#: .\carDealer\templates\carDealer\car_list.html:137
+msgid "Previous"
+msgstr "سابق"
+
+#: .\carDealer\templates\admin\complaints.html:396
+#: .\carDealer\templates\carDealer\car_list.html:149
+#: .\carDealer\templates\carDealer\car_list.html:153
+msgid "Next"
+msgstr "التالي"
+
+#: .\carDealer\templates\admin\complaints.html:397
+msgid "Last"
+msgstr "آخر"
+
+#: .\carDealer\templates\admin\complaints.html:402
+msgid "No complaints available"
+msgstr "لا شكاوى متاحة"
+
+#: .\carDealer\templates\admin\statistics.html:49
+#: .\carDealer\templates\carDealer\home.html:242
+msgid "Total Cars"
+msgstr "إجمالي السيارات"
+
+#: .\carDealer\templates\admin\statistics.html:53
+#: .\carDealer\templates\carDealer\home.html:230
+msgid "Sold Cars"
+msgstr "السيارات المباعة"
+
+#: .\carDealer\templates\admin\statistics.html:57
+msgid "Active Cars"
+msgstr "السيارات المتاحة"
+
+#: .\carDealer\templates\admin\statistics.html:6
+msgid "Total Complaints"
+msgstr "اجمالي الشكاوي"
+
+#: .\carDealer\templates\admin\statistics.html:65
+msgid "Active Ads"
+msgstr "الاعلانات الفعالة"
+
+#: .\carDealer\templates\admin\statistics.html:69
+msgid "recent sales (30 day)"
+msgstr "المبيعات الأخيرة (30 يومًا)"
+
+#: .\carDealer\templates\admin\statistics.html:75
+msgid "Cars By Brand"
+msgstr "السيارات حسب العلامة التجارية"
+
+#: .\carDealer\templates\admin\statistics.html:84
+msgid "Complaints By Status"
+msgstr "الشكاوي حسب الحالة"
+
+#: .\carDealer\templates\carDealer\about.html:10
+#: .\carDealer\templates\carDealer\includes\footer.html:80
+#: .\carDealer\templates\carDealer\includes\header.html:21
+msgid "About Us"
+msgstr "معلومات عنا"
+
+#: .\carDealer\templates\carDealer\about.html:11
+msgid "Your Trusted Partner in Car Sales"
+msgstr "شريكك الموثوق في مبيعات السيارات"
+
+#: .\carDealer\templates\carDealer\about.html:21
+#: .\carDealer\templates\carDealer\about.html:30
+msgid "Our Story"
+msgstr "قصتنا"
+
+#: .\carDealer\templates\carDealer\about.html:23
+msgid ""
+"Founded with a passion for automobiles and a commitment to customer "
+"satisfaction, we have been serving car enthusiasts and everyday drivers "
+"alike for over a decade."
+msgstr ""
+"تأسست مع شغف السيارات والالتزام برضا العملاء ، ونحن نخدم عشاق السيارات "
+"والسائقين كل يوم على حد سواء لأكثر من عقد."
+
+#: .\carDealer\templates\carDealer\about.html:26
+msgid ""
+"Our journey began with a simple mission: to make car buying and selling a "
+"seamless, transparent, and enjoyable experience. Today, we stand as one of "
+"the most trusted names in the automotive industry."
+msgstr ""
+"بدأت رحلتنا بمهمة بسيطة: جعل السيارات شراء وبيع تجربة سلسة وشفافة وممتعة. "
+"اليوم ، نقف كواحد من أكثر الأسماء الموثوقة في صناعة السيارات."
+
+#: .\carDealer\templates\carDealer\about.html:37
+msgid "Our Values"
+msgstr "قيمنا"
+
+#: .\carDealer\templates\carDealer\about.html:38
+msgid "What drives us forward"
+msgstr "ما الذي يدفعنا إلى الأمام"
+
+#: .\carDealer\templates\carDealer\about.html:46
+msgid "Trust & Transparency"
+msgstr "الثقة والشفافية"
+
+#: .\carDealer\templates\carDealer\about.html:47
+msgid ""
+"We believe in building relationships based on honesty and clear "
+"communication."
+msgstr "نحن نؤمن ببناء العلاقات على أساس الصدق والتواصل الواضح."
+
+#: .\carDealer\templates\carDealer\about.html:57
+
+msgid "Quality First"
+msgstr "ضمان الجودة"
+
+#: .\carDealer\templates\carDealer\about.html:58
+msgid ""
+"Every vehicle in our inventory meets our high standards of quality and "
+"reliability."
+msgstr "يتم فحص كل مركبة بدقة لتلبية معاييرنا عالية الجودة."
+
+#: .\carDealer\templates\carDealer\about.html:68
+msgid "Customer Focus"
+msgstr "التركيز على العملاء"
+
+#: .\carDealer\templates\carDealer\about.html:69
+msgid ""
+"Your satisfaction is our top priority, and we go the extra mile to ensure it."
+msgstr "رضاكم هو أولويتنا الأولى، ونحن نبذل قصارى جهدنا لضمان ذلك."
+
+#: .\carDealer\templates\carDealer\about.html:78
+msgid "Meet Our Team"
+msgstr "تعرف على فريقنا"
+
+#: .\carDealer\templates\carDealer\about.html:79
+msgid "The people behind our success"
+msgstr "الأشخاص الذين يقفون وراء نجاحنا"
+
+#: .\carDealer\templates\carDealer\about.html:103
+msgid "Years Experience"
+msgstr "سنوات الخبرة"
+
+#: .\carDealer\templates\carDealer\about.html:107
+
+msgid "Happy Customers"
+msgstr "عملاء سعداء خدم"
+
+#: .\carDealer\templates\carDealer\about.html:111
+
+msgid "Cars Sold"
+msgstr "تعليم كمباعة"
+
+#: .\carDealer\templates\carDealer\about.html:115
+msgid "Team Members"
+msgstr "اعضاء الفريق"
+
+#: .\carDealer\templates\carDealer\add_car.html:9
+#: .\carDealer\templates\carDealer\my_cars.html:10
+msgid "Add New Car"
+msgstr "أضف سيارة جديدة"
+
+#: .\carDealer\templates\carDealer\add_car.html:22
+#: .\carDealer\templates\carDealer\car_list.html:33
+#: .\carDealer\templates\carDealer\edit_car.html:24
+msgid "Brand"
+msgstr "ماركة"
+
+#: .\carDealer\templates\carDealer\add_car.html:26
+#: .\carDealer\templates\carDealer\car_list.html:44
+#: .\carDealer\templates\carDealer\edit_car.html:31
+msgid "Model"
+msgstr "المودل"
+
+#: .\carDealer\templates\carDealer\add_car.html:33
+#: .\carDealer\templates\carDealer\car_list.html:66
+#: .\carDealer\templates\carDealer\edit_car.html:38
+msgid "Year"
+msgstr "سنة"
+
+#: .\carDealer\templates\carDealer\add_car.html:37
+msgid "Price"
+msgstr "سعر"
+
+#: .\carDealer\templates\carDealer\add_car.html:41
+#: .\carDealer\templates\carDealer\edit_car.html:45
+msgid "Color"
+msgstr "لون"
+
+#: .\carDealer\templates\carDealer\add_car.html:48
+#: .\carDealer\templates\carDealer\edit_car.html:52
+msgid "Country"
+msgstr "دولة"
+
+#: .\carDealer\templates\carDealer\add_car.html:52
+#: .\carDealer\templates\carDealer\edit_car.html:59
+msgid "City"
+msgstr "مدينة"
+
+#: .\carDealer\templates\carDealer\add_car.html:58
+msgid "Car Images"
+msgstr "صور السيارة"
+
+#: .\carDealer\templates\carDealer\add_car.html:60
+msgid "You can select multiple images"
+msgstr "يمكنك تحديد صور متعددة"
+
+#: .\carDealer\templates\carDealer\add_car.html:64
+#: .\carDealer\templates\carDealer\car_detail.html:60
+#: .\carDealer\templates\carDealer\edit_car.html:66
+msgid "Description"
+msgstr "وصف"
+
+#: .\carDealer\templates\carDealer\add_car.html:69
+#: .\carDealer\templates\carDealer\includes\header.html:53
+msgid "Add Car"
+msgstr "أضف سيارة"
+
+#: .\carDealer\templates\carDealer\base.html:9
+msgid "Car Dealership"
+msgstr "وكيل السيارات"
+
+#: .\carDealer\templates\carDealer\base.html:28
+#: .\carDealer\templates\carDealer\edit_car.html:16
+msgid "Close"
+msgstr "اغلاق"
+
+#: .\carDealer\templates\carDealer\car_detail.html:8
+#: .\carDealer\templates\carDealer\includes\footer.html:74
+#: .\carDealer\templates\carDealer\includes\header.html:15
+msgid "Home"
+msgstr "الصفحة الرئيسية"
+
+#: .\carDealer\templates\carDealer\car_detail.html:9
+#: .\carDealer\templates\carDealer\includes\footer.html:77
+#: .\carDealer\templates\carDealer\includes\header.html:18
+msgid "Cars"
+msgstr "السيارات"
+
+#: .\carDealer\templates\carDealer\car_detail.html:10
+msgid "Details for"
+msgstr "تفاصيل"
+
+#: .\carDealer\templates\carDealer\car_detail.html:25
+#: .\carDealer\templates\carDealer\car_detail.html:56
+#: .\carDealer\templates\carDealer\edit_car.html:74
+#: .\carDealer\templates\carDealer\home.html:168
+#: .\carDealer\templates\carDealer\my_cars.html:33
+msgid "Sold"
+msgstr "مُباع"
+
+#: .\carDealer\templates\carDealer\car_detail.html:29
+msgid "Car Image"
+msgstr "صورة السيارة"
+
+#: .\carDealer\templates\carDealer\car_detail.html:44
+msgid "Car Details:"
+msgstr "تفاصيل السيارة:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:48
+msgid "Brand:"
+msgstr "ماركة:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:49
+msgid "Model:"
+msgstr "المودل:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:50
+#: .\carDealer\templates\carDealer\home.html:138
+#: .\carDealer\templates\carDealer\home.html:176
+#: .\carDealer\templates\carDealer\my_cars.html:28
+msgid "Year:"
+msgstr "سنة:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:51
+#: .\carDealer\templates\carDealer\home.html:139
+#: .\carDealer\templates\carDealer\home.html:177
+msgid "Color:"
+msgstr "لون:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:54
+#: .\carDealer\templates\carDealer\car_detail.html:147
+#: .\carDealer\templates\carDealer\home.html:140
+#: .\carDealer\templates\carDealer\home.html:178
+#: .\carDealer\templates\carDealer\my_cars.html:30
+msgid "Location:"
+msgstr "موقع:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:55
+#: .\carDealer\templates\carDealer\my_cars.html:29
+msgid "Price:"
+msgstr "سعر:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:56
+#: .\carDealer\templates\carDealer\my_cars.html:35
+msgid "Available"
+msgstr "متاح"
+
+#: .\carDealer\templates\carDealer\car_detail.html:57
+msgid "Listed on:"
+msgstr "مدرج في:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:61
+msgid "Description:"
+msgstr "وصف:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:69
+msgid "Approved Complaints"
+msgstr "الشكاوى"
+
+#: .\carDealer\templates\carDealer\car_detail.html:73
+msgid "From:"
+msgstr "من:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:74
+msgid "Date:"
+msgstr "تاريخ:"
+
+#: .\carDealer\templates\carDealer\car_detail.html:87
+msgid "Submit a Complaint"
+msgstr "تقديم شكوى"
+
+#: .\carDealer\templates\carDealer\car_detail.html:91
+msgid "Name"
+msgstr "اسم"
+
+#: .\carDealer\templates\carDealer\car_detail.html:95
+#: .\carDealer\templates\carDealer\contact.html:74
+msgid "Phone"
+msgstr "هاتف"
+
+#: .\carDealer\templates\carDealer\car_detail.html:99
+msgid "Complaint"
+msgstr "شكوى"
+
+#: .\carDealer\templates\carDealer\car_detail.html:102
+msgid "Submit Complaint"
+msgstr "تقديم الشكوى"
+
+#: .\carDealer\templates\carDealer\car_detail.html:116
+msgid "Contact Seller"
+msgstr "الاتصال بالبائع"
+
+#: .\carDealer\templates\carDealer\car_detail.html:122
+msgid "WhatsApp"
+msgstr "واتساب"
+
+#: .\carDealer\templates\carDealer\car_detail.html:126
+msgid "Call Seller"
+msgstr "استدعاء البائع"
+
+#: .\carDealer\templates\carDealer\car_detail.html:137
+msgid "Seller Information"
+msgstr "معلومات البائع"
+
+#: .\carDealer\templates\carDealer\car_detail.html:146
+msgid "Name:"
+msgstr "اسم:"
+
+#: .\carDealer\templates\carDealer\car_list.html:9
+#: .\carDealer\templates\carDealer\home.html:218
+msgid "Available Cars"
+msgstr "السيارات المتاحة"
+
+#: .\carDealer\templates\carDealer\car_list.html:16
+msgid "Search by brand, model..."
+msgstr "البحث عن طريق العلامة التجارية ، المودل ..."
+
+#: .\carDealer\templates\carDealer\car_list.html:17
+msgid "Search"
+msgstr "البحث"
+
+#: .\carDealer\templates\carDealer\car_list.html:35
+msgid "All Brands"
+msgstr "جميع العلامات التجارية"
+
+#: .\carDealer\templates\carDealer\car_list.html:46
+msgid "All Models"
+msgstr "جميع الموديلات"
+
+#: .\carDealer\templates\carDealer\car_list.html:55
+msgid "Location"
+msgstr "موقع"
+
+#: .\carDealer\templates\carDealer\car_list.html:57
+msgid "All Cities"
+msgstr "جميع المدن"
+
+#: .\carDealer\templates\carDealer\car_list.html:68
+msgid "All Years"
+msgstr "كل السنوات"
+
+#: .\carDealer\templates\carDealer\car_list.html:77
+msgid "Price Range"
+msgstr "النطاق السعري"
+
+#: .\carDealer\templates\carDealer\car_list.html:79
+msgid "Min"
+msgstr "الأدنى"
+
+#: .\carDealer\templates\carDealer\car_list.html:80
+msgid "Max"
+msgstr "الأعلى"
+
+#: .\carDealer\templates\carDealer\car_list.html:116
+#: .\carDealer\templates\carDealer\home.html:144
+#: .\carDealer\templates\carDealer\home.html:182
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+#: .\carDealer\templates\carDealer\car_list.html:122
+msgid "No cars found matching your criteria."
+msgstr "لم نجد سيارات مطابقة لمعاييرك."
+
+#: .\carDealer\templates\carDealer\contact.html:10
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+#: .\carDealer\templates\carDealer\contact.html:11
+msgid "We're here to help you find your perfect car"
+msgstr "نحن هنا لمساعدتك في العثور على سيارتك المثالية"
+
+#: .\carDealer\templates\carDealer\contact.html:24
+msgid "Get in Touch"
+msgstr "تواصل على اتصال"
+
+#: .\carDealer\templates\carDealer\contact.html:28
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#: .\carDealer\templates\carDealer\contact.html:32
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\carDealer\templates\carDealer\contact.html:36
+msgid "Phone Number"
+msgstr "رقم التليفون"
+
+#: .\carDealer\templates\carDealer\contact.html:40
+msgid "Subject"
+msgstr "موضوع"
+
+#: .\carDealer\templates\carDealer\contact.html:44
+msgid "Message"
+msgstr "رسالة"
+
+#: .\carDealer\templates\carDealer\contact.html:47
+msgid "Send Message"
+msgstr "أرسل رسالة"
+
+#: .\carDealer\templates\carDealer\contact.html:59
+
+msgid "Contact Information"
+msgstr "تحرير معلومات السيارة"
+
+#: .\carDealer\templates\carDealer\contact.html:65
+
+msgid "Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\carDealer\templates\carDealer\contact.html:83
+
+msgid "Email"
+msgstr "بريد إلكتروني:"
+
+#: .\carDealer\templates\carDealer\contact.html:94
+msgid "Business Hours"
+msgstr "ساعات العمل"
+
+#: .\carDealer\templates\carDealer\edit_car.html:9
+msgid "Edit Car Information"
+msgstr "تحرير معلومات السيارة"
+
+#: .\carDealer\templates\carDealer\edit_car.html:80
+msgid "Update Car"
+msgstr "تحديث السيارة"
+
+#: .\carDealer\templates\carDealer\home.html:36
+#: .\carDealer\templates\carDealer\home.html:62
+msgid "Welcome to"
+msgstr "مرحبا بكم في"
+
+#: .\carDealer\templates\carDealer\home.html:43
+msgid "Discover Your Dream Car Today"
+msgstr "اكتشف سيارة أحلامك اليوم"
+
+#: .\carDealer\templates\carDealer\home.html:48
+msgid "Explore Our Collection"
+msgstr "استكشف مجموعتنا"
+
+#: .\carDealer\templates\carDealer\home.html:63
+msgid "Explore our premium collection of vehicles"
+msgstr "استكشف مجموعتنا المتميزة من المركبات"
+
+#: .\carDealer\templates\carDealer\home.html:95
+msgid "Wide Selection"
+msgstr "اختيار واسع"
+
+#: .\carDealer\templates\carDealer\home.html:96
+msgid ""
+"Choose from a diverse range of vehicles from top brands to find your perfect "
+"match."
+msgstr ""
+"اختر من بين مجموعة متنوعة من المركبات من أفضل العلامات التجارية للعثور على "
+"مطابقة مثالية."
+
+#: .\carDealer\templates\carDealer\home.html:104
+msgid "Quality Assurance"
+msgstr "ضمان الجودة"
+
+#: .\carDealer\templates\carDealer\home.html:105
+msgid ""
+"Every vehicle is thoroughly inspected to meet our high-quality standards."
+msgstr "يتم فحص كل مركبة بدقة لتلبية معاييرنا عالية الجودة."
+
+#: .\carDealer\templates\carDealer\home.html:113
+msgid "24/7 Support"
+msgstr "دعم 24/7"
+
+#: .\carDealer\templates\carDealer\home.html:114
+msgid ""
+"Our team is always ready to assist you with any inquiries, day or night."
+msgstr "فريقنا مستعد دائمًا لمساعدتك في أي استفسارات ، ليلا أو نهارا."
+
+#: .\carDealer\templates\carDealer\home.html:125
+msgid "Latest Arrivals"
+msgstr "أحدث الوافدين"
+
+#: .\carDealer\templates\carDealer\home.html:126
+msgid "Check out the newest additions to our inventory"
+msgstr "تحقق من أحدث الإضافات إلى مخزوننا"
+
+#: .\carDealer\templates\carDealer\home.html:159
+msgid "Latest Sold Cars"
+msgstr "أحدث السيارات المباعة"
+
+#: .\carDealer\templates\carDealer\home.html:160
+msgid " Explore recently sold vehicles from our inventory"
+msgstr "استكشاف السيارات التي تم بيعها مؤخرًا من مخزوننا"
+
+#: .\carDealer\templates\carDealer\home.html:189
+msgid "No sold cars available."
+msgstr "لا توجد سيارات تباع متوفرة."
+
+#: .\carDealer\templates\carDealer\home.html:201
+msgid "Our Numbers Speak"
+msgstr "أرقامنا تتحدث"
+
+#: .\carDealer\templates\carDealer\home.html:202
+msgid "Trusted by thousands of customers across the country"
+msgstr "يثق به الآلاف من العملاء في جميع أنحاء البلاد"
+
+#: .\carDealer\templates\carDealer\home.html:220
+msgid "Ready for new owners"
+msgstr "جاهز للمالكين الجدد"
+
+#: .\carDealer\templates\carDealer\home.html:232
+msgid "Happy customers served"
+msgstr "عملاء سعداء خدم"
+
+#: .\carDealer\templates\carDealer\home.html:244
+msgid "In our inventory"
+msgstr "في مخزوننا"
+
+#: .\carDealer\templates\carDealer\home.html:254
+msgid "Trusted Users"
+msgstr "المستخدمين الموثوق بهم"
+
+#: .\carDealer\templates\carDealer\home.html:256
+msgid "Active community members"
+msgstr "أعضاء المجتمع النشطين"
+
+#: .\carDealer\templates\carDealer\includes\footer.html:10
+msgid "Get connected with us on social networks:"
+msgstr "تواصل معنا على الشبكات الاجتماعية:"
+
+#: .\carDealer\templates\carDealer\includes\footer.html:72
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+#: .\carDealer\templates\carDealer\includes\footer.html:83
+#: .\carDealer\templates\carDealer\includes\footer.html:91
+#: .\carDealer\templates\carDealer\includes\header.html:24
+msgid "Contact"
+msgstr "اتصال"
+
+#: .\carDealer\templates\carDealer\includes\header.html:36
+msgid "Profile"
+msgstr "بروفايل"
+
+#: .\carDealer\templates\carDealer\includes\header.html:42
+msgid "Dashboard"
+msgstr "لوحة القيادة"
+
+#: .\carDealer\templates\carDealer\includes\header.html:48
+#: .\carDealer\templates\carDealer\my_cars.html:7
+msgid "My Cars"
+msgstr "سيارتي"
+
+#: .\carDealer\templates\carDealer\includes\header.html:61
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: .\carDealer\templates\carDealer\includes\header.html:69
+#: .\carDealer\templates\carDealer\login.html:9
+#: .\carDealer\templates\carDealer\login.html:38
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: .\carDealer\templates\carDealer\login.html:43
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: .\carDealer\templates\carDealer\login.html:43
+msgid "Register here"
+msgstr "سجل هنا"
+
+#: .\carDealer\templates\carDealer\my_cars.html:42
+msgid "View"
+msgstr "عرض"
+
+#: .\carDealer\templates\carDealer\my_cars.html:45
+msgid "Edit"
+msgstr "تحرير"
+
+#: .\carDealer\templates\carDealer\my_cars.html:48
+msgid "Mark as Sold"
+msgstr "تعليم كمباعة"
+
+#: .\carDealer\templates\carDealer\my_cars.html:58
+
+msgid ""
+"You haven't posted any cars yet. Click the Add New Car button to get started!"
+msgstr "لم تنشر أي سيارة بعد. انقر على زر إضافة سيارة جديدة للبدء!"
+
+#: .\carDealer\templates\carDealer\profile.html:25
+msgid "Edit Profile"
+msgstr "تحرير الملف الشخصي"
+
+#: .\carDealer\templates\carDealer\profile.html:36
+msgid "Total Cars Listed"
+msgstr "إجمالي السيارات المدرجة"
+
+#: .\carDealer\templates\carDealer\profile.html:40
+msgid "Member Since"
+msgstr "عضو منذ "
+
+#: .\carDealer\templates\carDealer\profile.html:51
+msgid "Recent Cars"
+msgstr "آخر السيارات"
+
+#: .\carDealer\templates\carDealer\profile.html:73
+
+msgid "No cars listed yet."
+msgstr "إجمالي السيارات المدرجة"
+
+#: .\carDealer\templates\carDealer\register.html:8
+#: .\carDealer\templates\carDealer\register.html:44
+msgid "Register"
+msgstr "تسجيل"
+
+#: .\carDealer\templates\carDealer\register.html:49
+msgid "Already have an account?"
+msgstr "هل لديك بالفعل حساب؟"
+
+#: .\carDealer\templates\carDealer\register.html:49
+msgid "Login here"
+msgstr "تسجيل الدخول هنا"

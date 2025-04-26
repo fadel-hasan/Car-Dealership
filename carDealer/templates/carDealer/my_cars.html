@@ -1,13 +1,13 @@
 {% extends 'carDealer/base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
-            <h2 class="mb-4">My Cars</h2>
+            <h2 class="mb-4">{% trans "My Cars" %}</h2>
             <div class="mb-3">
                 <a href="{% url 'carDealer:add_car' %}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Add New Car
+                    <i class="fas fa-plus"></i> {% trans "Add New Car" %} 
                 </a>
             </div>
             
@@ -25,27 +25,27 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
                             <p class="card-text">
-                                <strong>Year:</strong> {{ car.year }}<br>
-                                <strong>Price:</strong> ${{ car.price }}<br>
-                                <strong>Location:</strong> {{ car.city }}, {{ car.country }}<br>
-                                <strong>Status:</strong> 
+                                <strong>{% trans "Year:" %} </strong> {{ car.year }}<br>
+                                <strong>{% trans "Price:" %} </strong> ${{ car.price }}<br>
+                                <strong>{% trans "Location:" %} </strong> {{ car.city }}, {{ car.country }}<br>
+                                <strong>{% trans "Status:" %} </strong> 
                                 {% if car.sold %}
-                                <span class="badge bg-danger">Sold</span>
+                                <span class="badge bg-danger">{% trans "Sold" %} </span>
                                 {% else %}
-                                <span class="badge bg-success">Available</span>
+                                <span class="badge bg-success">{% trans "Available" %} </span>
                                 {% endif %}
                             </p>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-between">
                                 <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-info btn-sm">
-                                    <i class="fas fa-eye"></i> View
+                                    <i class="fas fa-eye"></i> {% trans "View" %} 
                                 </a>
                                 <a href="{% url 'carDealer:edit_car' car.id%}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i>{% trans "Edit" %} 
                                 </a>
                                 <a href="{% url 'carDealer:mark_as_sold' car.id %}" class="btn btn-success btn-sm">
-                                <i class="fas fa-check"></i> Mark as Sold
+                                <i class="fas fa-check"></i> {% trans "Mark as Sold" %} 
                                 </a>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
             </div>
             {% else %}
             <div class="alert alert-info">
-                <p>You haven't posted any cars yet. Click the "Add New Car" button to get started!</p>
+                <p>{% trans "You haven't posted any cars yet. Click the Add New Car button to get started!" %} </p>
             </div>
             {% endif %}
         </div>

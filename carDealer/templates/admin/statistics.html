@@ -1,5 +1,5 @@
 {% extends 'admin/base_site.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block extrastyle %}
 {{ block.super }}
@@ -46,33 +46,33 @@
 <div class="stats-container">
     <div class="stats-grid">
         <div class="stats-card">
-            <h3>Total Cars</h3>
+            <h3>{% trans "Total Cars" %} </h3>
             <div class="stats-number">{{ total_cars }}</div>
         </div>
         <div class="stats-card">
-            <h3>Sold Cars</h3>
+            <h3>{% trans "Sold Cars" %} </h3>
             <div class="stats-number">{{ sold_cars }}</div>
         </div>
         <div class="stats-card">
-            <h3>Active Cars</h3>
+            <h3>{% trans "Active Cars" %} </h3>
             <div class="stats-number">{{ active_cars }}</div>
         </div>
         <div class="stats-card">
-            <h3>Total Complaints</h3>
+            <h3>{% trans "Total Complaints" %} </h3>
             <div class="stats-number">{{ total_complaints }}</div>
         </div>
         <div class="stats-card">
-            <h3>Active Ads</h3>
+            <h3>{% trans "Active Ads" %}</h3>
             <div class="stats-number">{{ active_ads }}</div>
         </div>
         <div class="stats-card">
-            <h3>recent sales (30 day)</h3>
+            <h3>{% trans "recent sales (30 day)" %}</h3>
             <div class="stats-number">{{ recent_sales }}</div>
         </div>
     </div>
 
     <div class="chart-container">
-        <h3>Cars By Brand</h3>
+        <h3>{% trans "Cars By Brand" %}</h3>
         <ul>
         {% for brand in cars_by_brand %}
             <li>{{ brand.brand }}: {{ brand.count }}</li>
@@ -81,7 +81,7 @@
     </div>
 
     <div class="chart-container">
-        <h3>Complaints By Status</h3>
+        <h3>{% trans "Complaints By Status" %}</h3>
         <ul>
         {% for status in complaints_by_status %}
             <li>{{ status.status }}: {{ status.count }}</li>

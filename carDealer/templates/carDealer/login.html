@@ -1,12 +1,12 @@
 {% extends 'carDealer/base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
         <div class="col-md-6 col-lg-5">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="text-center mb-0">Login</h3>
+                    <h3 class="text-center mb-0">{% trans "Login" %}</h3>
                 </div>
                 <div class="card-body p-4">
                     
@@ -35,12 +35,12 @@
                         {% endfor %}
                         <input type="hidden" name="next" value="{{ next }}">
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans "Login" %}</button>
                         </div>
                     </form>
                     
                     <div class="text-center mt-4">
-                        <p class="mb-0">Don't have an account? <a href="{% url 'carDealer:register' %}" class="text-primary">Register here</a></p>
+                        <p class="mb-0">{% trans "Don't have an account?" %} <a href="{% url 'carDealer:register' %}" class="text-primary">{% trans "Register here" %}</a></p>
                     </div>
                 </div>
             </div>

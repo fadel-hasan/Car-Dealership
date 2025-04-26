@@ -1,27 +1,5 @@
 {% load year_tags %}
-
-{% comment %} <footer class="footer bg-dark text-white py-4 mt-auto">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Contact Us</h5>
-                {% if settings %}
-                    {% if settings.facebook %}
-                        <a href="{{ settings.facebook }}" class="text-white me-3">Facebook</a>
-                    {% endif %}
-                    {% if settings.instagram %}
-                        <a href="{{ settings.instagram }}" class="text-white me-3">Instagram</a>
-                    {% endif %}
-                    {% if settings.whatsapp %}
-                        <a href="https://wa.me/{{ settings.whatsapp }}" class="text-white">WhatsApp</a>
-                    {% endif %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</footer> {% endcomment %}
-
-
+{% load i18n %}
 
 <!-- Footer -->
 <footer class="bg-dark text-center text-lg-start text-white">
@@ -29,7 +7,7 @@
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-3 border-bottom">
       <!-- Left -->
       <div class="me-5 d-none d-lg-block">
-        <span>Get connected with us on social networks:</span>
+        <span>{% trans "Get connected with us on social networks:" %}</span>
       </div>
       <!-- Left -->
   
@@ -91,18 +69,18 @@
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Quick Links</h6>
+              <h6 class="text-uppercase fw-bold mb-4">{% trans "Quick Links" %} </h6>
               <p>
-                <a href="{% url 'carDealer:home' %}" class="text-white text-decoration-none">Home</a>
+                <a href="{% url 'carDealer:home' %}" class="text-white text-decoration-none">{% trans "Home" %} </a>
               </p>
               <p>
-                <a href="{% url 'carDealer:car_list' %}" class="text-white text-decoration-none">Cars</a>
+                <a href="{% url 'carDealer:car_list' %}" class="text-white text-decoration-none">{% trans "Cars" %} </a>
               </p>
               <p>
-                <a href="{% url 'carDealer:about' %}" class="text-white text-decoration-none">About Us</a>
+                <a href="{% url 'carDealer:about' %}" class="text-white text-decoration-none">{% trans "About Us" %} </a>
               </p>
               <p>
-                <a href="{% url 'carDealer:contact' %}" class="text-white text-decoration-none">Contact</a>
+                <a href="{% url 'carDealer:contact' %}" class="text-white text-decoration-none">{% trans "Contact" %} </a>
               </p>
             </div>
             <!-- Grid column -->
@@ -110,7 +88,7 @@
             <!-- Grid column -->
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <h6 class="text-uppercase fw-bold mb-4">{% trans "Contact" %}</h6>
               {% if settings.address %}
               <p><i class="fas fa-home me-3"></i>{{ settings.address }}</p>
               {% endif %}

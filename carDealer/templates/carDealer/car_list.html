@@ -1,20 +1,20 @@
 {% extends 'carDealer/base.html' %}
-{% load query_tags %}
+{% load query_tags i18n %}
 
 {% block content %}
 <div class="container py-2">
     <!-- Search Bar -->
     <div class="row mb-4 align-items-center">
         <div class="col-md-8">
-            <h2 class="fw-bold mb-0">Available Cars</h2>
+            <h2 class="fw-bold mb-0">{% trans "Available Cars" %}</h2>
         </div>
         <div class="col-md-4">
             <form method="get" class="input-group">
                 <span class="input-group-text bg-white border-end-0">
                     <i class="fas fa-search"></i>
                 </span>
-                <input type="text" class="form-control border-start-0" id="searchInput" name="search" placeholder="Search by brand, model..." value="{{ request.GET.search }}">
-                <button class="btn btn-primary" type="submit">Search</button>
+                <input type="text" class="form-control border-start-0" id="searchInput" name="search" placeholder="{% trans "Search by brand, model..." %}" value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
             </form>
         </div>
     </div>
@@ -24,15 +24,15 @@
         <div class="col-md-3 mb-4">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Filters</h5>
+                    <h5 class="mb-0">{% trans "Filters" %}</h5>
                 </div>
                 <div class="card-body">
                     <form method="get">
                         <!-- Brand Filter -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Brand</label>
+                            <label class="form-label fw-semibold">{% trans "Brand" %}</label>
                             <select class="form-select" name="brand">
-                                <option value="">All Brands</option>
+                                <option value="">{% trans "All Brands" %}</option>
                                 {% for brand in brands %}
                                     <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>{{ brand }}</option>
                                 {% endfor %}
@@ -41,9 +41,9 @@
 
                         <!-- Model Filter -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Model</label>
+                            <label class="form-label fw-semibold">{% trans "Model" %}</label>
                             <select class="form-select" name="model">
-                                <option value="">All Models</option>
+                                <option value="">{% trans "All Models" %}</option>
                                 {% for model in models %}
                                     <option value="{{ model }}" {% if request.GET.model == model %}selected{% endif %}>{{ model }}</option>
                                 {% endfor %}
@@ -52,9 +52,9 @@
 
                         <!-- City Filter -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Location</label>
+                            <label class="form-label fw-semibold">{% trans "Location" %}</label>
                             <select class="form-select" name="city">
-                                <option value="">All Cities</option>
+                                <option value="">{% trans "All Cities" %}</option>
                                 {% for city in cities %}
                                     <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
                                 {% endfor %}
@@ -63,9 +63,9 @@
 
                         <!-- Year Filter -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Year</label>
+                            <label class="form-label fw-semibold">{% trans "Year" %}</label>
                             <select class="form-select" name="year">
-                                <option value="">All Years</option>
+                                <option value="">{% trans "All Years" %}</option>
                                 {% for year in years %}
                                     <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
                                 {% endfor %}
@@ -74,15 +74,15 @@
 
                         <!-- Price Range Filter -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Price Range</label>
+                            <label class="form-label fw-semibold">{% trans "Price Range" %}</label>
                             <div class="d-flex gap-2">
-                                <input type="number" class="form-control" name="min_price" placeholder="Min" value="{{ request.GET.min_price }}">
-                                <input type="number" class="form-control" name="max_price" placeholder="Max" value="{{ request.GET.max_price }}">
+                                <input type="number" class="form-control" name="min_price" placeholder="{% trans "Min" %}" value="{{ request.GET.min_price }}">
+                                <input type="number" class="form-control" name="max_price" placeholder="{% trans "Max" %}" value="{{ request.GET.max_price }}">
                             </div>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Apply Filters</button>
+                            <button type="submit" class="btn btn-primary">{% trans "Apply Filters" %}</button>
                         </div>
                     </form>
                 </div>
@@ -113,13 +113,13 @@
                                 <p class="card-text">{{ car.description|truncatewords:20 }}</p>
                             </div>
                             <div class="card-footer bg-transparent border-top-0 pt-0">
-                                <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-primary w-100">View Details</a>
+                                <a href="{% url 'carDealer:car_detail' car.id %}" class="btn btn-primary w-100">{% trans "View Details" %}</a>
                             </div>
                         </div>
                     </div>
                 {% empty %}
                     <div class="col-12">
-                        <div class="alert alert-info">No cars found matching your criteria.</div>
+                        <div class="alert alert-info">{% trans "No cars found matching your criteria." %}</div>
                     </div>
                 {% endfor %}
             </div>
@@ -130,11 +130,11 @@
                     <ul class="pagination justify-content-center">
                         {% if cars.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?{% query_string page=cars.previous_page_number %}">&laquo; Previous</a>
+                                <a class="page-link" href="?{% query_string page=cars.previous_page_number %}">&laquo; {% trans "Previous" %}</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link">&laquo; Previous</span>
+                                <span class="page-link">&laquo; {% trans "Previous" %}</span>
                             </li>
                         {% endif %}
 
@@ -146,11 +146,11 @@
 
                         {% if cars.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?{% query_string page=cars.next_page_number %}">Next &raquo;</a>
+                                <a class="page-link" href="?{% query_string page=cars.next_page_number %}">{% trans "Next" %} &raquo;</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link">Next &raquo;</span>
+                                <span class="page-link">{% trans "Next" %} &raquo;</span>
                             </li>
                         {% endif %}
                     </ul>

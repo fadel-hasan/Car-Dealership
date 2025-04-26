@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{% url 'carDealer:home' %}">
@@ -11,16 +12,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carDealer:home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'carDealer:home' %}">{% trans "Home" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carDealer:car_list' %}">Cars</a>
+                    <a class="nav-link" href="{% url 'carDealer:car_list' %}">{% trans "Cars" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carDealer:about' %}">About Us</a>
+                    <a class="nav-link" href="{% url 'carDealer:about' %}">{% trans "About Us" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carDealer:contact' %}">Contact</a>
+                    <a class="nav-link" href="{% url 'carDealer:contact' %}">{% trans "Contact" %}</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -32,24 +33,24 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li>
                                 <a class="dropdown-item" href="{% url 'carDealer:profile' %}">
-                                    <i class="fas fa-user me-2"></i> Profile
+                                    <i class="fas fa-user me-2"></i> {% trans "Profile" %}
                                 </a>
                             </li>
                             {% if user.is_superuser %}
                             <li>
                                 <a class="dropdown-item" href="/admin/">
-                                    <i class="fas fa-house me-2"></i> Dashboard
+                                    <i class="fas fa-house me-2"></i> {% trans "Dashboard" %}
                                 </a>
                             </li>
                             {% endif %}
                             <li>
                                 <a class="dropdown-item" href="{% url 'carDealer:my_cars' %}">
-                                    <i class="fas fa-car me-2"></i> My Cars
+                                    <i class="fas fa-car me-2"></i> {% trans "My Cars" %}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{% url 'carDealer:add_car' %}">
-                                    <i class="fas fa-plus-circle me-2"></i> Add Car
+                                    <i class="fas fa-plus-circle me-2"></i> {% trans "Add Car" %}
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider"></li>
@@ -57,7 +58,7 @@
                                 <form method="post" action="{% url 'carDealer:logout' %}" class="d-inline">
                                     {% csrf_token %}
                                     <button type="submit" class="dropdown-item">
-                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                        <i class="fas fa-sign-out-alt me-2"></i> {% trans "Logout" %}
                                     </button>
                                 </form>
                             </li>
@@ -65,10 +66,49 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'carDealer:login' %}">Login</a>
+                        <a class="nav-link" href="{% url 'carDealer:login' %}">{% trans "Login" %}</a>
                     </li>
                 {% endif %}
+                
+                <!-- تحسين فورم تغيير اللغة -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            <i class="fas fa-globe me-1"></i> العربية
+                        {% else %}
+                            <i class="fas fa-globe me-1"></i> English
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <form action="{% url 'set_language' %}" method="post" id="language-form">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input type="hidden" name="language" id="language-input">
+                            
+                            <li>
+                                <button type="button" class="dropdown-item {% if LANGUAGE_CODE == 'en' %}active{% endif %}" onclick="changeLanguage('en')">
+                                    <span class="fi fi-us me-2"></span> English
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item {% if LANGUAGE_CODE == 'ar' %}active{% endif %}" onclick="changeLanguage('ar')">
+                                    <span class="fi fi-sa me-2"></span> العربية
+                                </button>
+                            </li>
+                        </form>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<script>
+    function changeLanguage(langCode) {
+        document.getElementById('language-input').value = langCode;
+        document.getElementById('language-form').submit();
+    }
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">

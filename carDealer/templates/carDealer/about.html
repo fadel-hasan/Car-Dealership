@@ -1,5 +1,5 @@
 {% extends 'carDealer/base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -7,8 +7,8 @@
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12 text-center text-white">
-                <h1 class="display-4 fw-bold mb-4">About Us</h1>
-                <p class="lead">Your Trusted Partner in Car Sales</p>
+                <h1 class="display-4 fw-bold mb-4">{% trans "About Us" %}</h1>
+                <p class="lead">{% trans "Your Trusted Partner in Car Sales" %}</p>
             </div>
         </div>
     </div>
@@ -18,27 +18,24 @@
 <div class="container py-5">
     <div class="row align-items-center mb-5">
         <div class="col-lg-6">
-            <h2 class="display-5 fw-bold mb-4" style="color: #333;">Our Story</h2>
+            <h2 class="display-5 fw-bold mb-4" style="color: #333;">{% trans "Our Story" %}</h2>
             <p class="lead mb-4" style="color: #666;">
-                Founded with a passion for automobiles and a commitment to customer satisfaction, 
-                we have been serving car enthusiasts and everyday drivers alike for over a decade.
+                {% trans "Founded with a passion for automobiles and a commitment to customer satisfaction, we have been serving car enthusiasts and everyday drivers alike for over a decade." %}
             </p>
             <p style="color: #666;">
-                Our journey began with a simple mission: to make car buying and selling a seamless, 
-                transparent, and enjoyable experience. Today, we stand as one of the most trusted 
-                names in the automotive industry.
+                {% trans "Our journey began with a simple mission: to make car buying and selling a seamless, transparent, and enjoyable experience. Today, we stand as one of the most trusted names in the automotive industry." %}
             </p>
         </div>
         <div class="col-lg-6">
-            <img src="{% static 'img/about-story.jpg' %}" alt="Our Story" class="img-fluid rounded shadow" style="max-height: 400px; width: 100%; object-fit: cover;">
+            <img src="{% static 'img/about-story.jpg' %}" alt="{% trans "Our Story" %}" class="img-fluid rounded shadow" style="max-height: 400px; width: 100%; object-fit: cover;">
         </div>
     </div>
 
     <!-- Our Values -->
     <div class="row mb-5">
         <div class="col-12 text-center mb-5">
-            <h2 class="display-5 fw-bold" style="color: #333;">Our Values</h2>
-            <p class="lead" style="color: #666;">What drives us forward</p>
+            <h2 class="display-5 fw-bold" style="color: #333;">{% trans "Our Values" %}</h2>
+            <p class="lead" style="color: #666;">{% trans "What drives us forward" %}</p>
         </div>
         <div class="col-md-4 mb-4">
             <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
@@ -46,8 +43,8 @@
                     <div class="icon mb-3" style="font-size: 2.5rem; color: #0d6efd;">
                         <i class="fas fa-handshake"></i>
                     </div>
-                    <h4 class="mb-3" style="color: #333;">Trust & Transparency</h4>
-                    <p style="color: #666;">We believe in building relationships based on honesty and clear communication.</p>
+                    <h4 class="mb-3" style="color: #333;">{% trans "Trust & Transparency" %}</h4>
+                    <p style="color: #666;">{% trans "We believe in building relationships based on honesty and clear communication." %}</p>
                 </div>
             </div>
         </div>
@@ -57,8 +54,8 @@
                     <div class="icon mb-3" style="font-size: 2.5rem; color: #0d6efd;">
                         <i class="fas fa-star"></i>
                     </div>
-                    <h4 class="mb-3" style="color: #333;">Quality First</h4>
-                    <p style="color: #666;">Every vehicle in our inventory meets our high standards of quality and reliability.</p>
+                    <h4 class="mb-3" style="color: #333;">{% trans "Quality First" %} </h4>
+                    <p style="color: #666;">{% trans "Every vehicle in our inventory meets our high standards of quality and reliability." %}</p>
                 </div>
             </div>
         </div>
@@ -68,8 +65,8 @@
                     <div class="icon mb-3" style="font-size: 2.5rem; color: #0d6efd;">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h4 class="mb-3" style="color: #333;">Customer Focus</h4>
-                    <p style="color: #666;">Your satisfaction is our top priority, and we go the extra mile to ensure it.</p>
+                    <h4 class="mb-3" style="color: #333;">{% trans "Customer Focus" %} </h4>
+                    <p style="color: #666;">{% trans "Your satisfaction is our top priority, and we go the extra mile to ensure it." %} </p>
                 </div>
             </div>
         </div>
@@ -78,8 +75,8 @@
     <!-- Team Section -->
     <div class="row mb-5">
         <div class="col-12 text-center mb-5">
-            <h2 class="display-5 fw-bold" style="color: #333;">Meet Our Team</h2>
-            <p class="lead" style="color: #666;">The people behind our success</p>
+            <h2 class="display-5 fw-bold" style="color: #333;">{% trans "Meet Our Team" %}</h2>
+            <p class="lead" style="color: #666;">{% trans "The people behind our success" %} </p>
         </div>
         {% for team_member in team_members %}
         <div class="col-md-4 mb-4">
@@ -103,21 +100,21 @@
     <div class="row text-center py-5" style="background-color: #f8f9fa; border-radius: 15px;">
         <div class="col-md-3 mb-4">
             <h2 class="display-4 fw-bold" style="color: #0d6efd;">10+</h2>
-            <p class="lead" style="color: #666;">Years Experience</p>
+            <p class="lead" style="color: #666;">{% trans "Years Experience" %} </p>
         </div>
         <div class="col-md-3 mb-4">
             <h2 class="display-4 fw-bold" style="color: #0d6efd;">1000+</h2>
-            <p class="lead" style="color: #666;">Happy Customers</p>
+            <p class="lead" style="color: #666;">{% trans "Happy Customers" %} </p>
         </div>
         <div class="col-md-3 mb-4">
             <h2 class="display-4 fw-bold" style="color: #0d6efd;">500+</h2>
-            <p class="lead" style="color: #666;">Cars Sold</p>
+            <p class="lead" style="color: #666;">{% trans "Cars Sold" %} </p>
         </div>
         <div class="col-md-3 mb-4">
             <h2 class="display-4 fw-bold" style="color: #0d6efd;">50+</h2>
-            <p class="lead" style="color: #666;">Team Members</p>
+            <p class="lead" style="color: #666;">{% trans "Team Members" %}</p>
         </div>
     </div>
 </div>
 
-{% endblock %} 
+{% endblock %}

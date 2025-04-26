@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extrastyle %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -280,31 +281,31 @@
 {% block content %}
 <div class="complaints-container">
     <div class="filters-section">
-        <h3>Filters</h3>
+        <h3>{% trans "Filters" %} </h3>
         <form method="get">
             <div class="filter-group">
-                <label for="status">Status:</label>
+                <label for="status">{% trans "Status:" %} </label>
                 <select name="status" id="status">
-                    <option value="">All</option>
-                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
-                    <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Approved</option>
-                    <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>Rejected</option>
+                    <option value="">{% trans "All" %} </option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>{% trans "Pending" %} </option>
+                    <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>{% trans "Approved" %} </option>
+                    <option value="rejected" {% if status_filter == 'rejected' %}selected{% endif %}>{% trans "Rejected" %} </option>
                 </select>
             </div>
 
             <div class="filter-group">
-                <label for="is_public">Visibility:</label>
+                <label for="is_public">{% trans "Visibility:" %} </label>
                 <select name="is_public" id="is_public">
-                    <option value="">All</option>
+                    <option value="">{% trans "All" %} </option>
                     <option value="1" {% if is_public_filter == '1' %}selected{% endif %}>Public</option>
                     <option value="0" {% if is_public_filter == '0' %}selected{% endif %}>Private</option>
                 </select>
             </div>
 
             <div class="filter-group">
-                <label for="car">Car:</label>
+                <label for="car">{% trans "Car:" %} </label>
                 <select name="car" id="car">
-                    <option value="">All Cars</option>
+                    <option value="">{% trans "All Cars" %} </option>
                     {% for car in cars %}
                     <option value="{{ car.id }}" {% if car_filter == car.id|stringformat:"i" %}selected{% endif %}>
                         {{ car.brand }} {{ car.model }} ({{ car.year }})
@@ -314,18 +315,18 @@
             </div>
 
             <div class="filter-group">
-                <label for="search">Search:</label>
+                <label for="search">{% trans "Search:" %} </label>
                 <input type="text" name="search" id="search" class="search-box" value="{{ search_query }}" placeholder="Search complaints...">
             </div>
 
             <div class="filter-submit">
-                <button type="submit">Apply Filters</button>
+                <button type="submit">{% trans "Apply Filters" %}</button>
             </div>
         </form>
     </div>
 
     <div class="complaints-list">
-        <h1>Complaints Management</h1>
+        <h1>{% trans "Complaints Management" %} </h1>
         {% if complaints %}
         {% for complaint in complaints %}
             <div class="complaint-card">
@@ -340,18 +341,18 @@
 
                 <div class="complaint-footer">
                     <div class="complaint-info">
-                        <span><i class="fas fa-phone"></i> Phone: {{ complaint.phone }}</span>
-                        <span><i class="fas fa-envelope"></i> Email: {{ complaint.email }}</span>
-                        <span><i class="fas fa-car"></i> Car: 
+                        <span><i class="fas fa-phone"></i>{% trans "Phone:" %}  {{ complaint.phone }}</span>
+                        <span><i class="fas fa-envelope"></i>{% trans "Email:" %}  {{ complaint.email }}</span>
+                        <span><i class="fas fa-car"></i>{% trans "Car:" %}  
                             <a href="{% url 'carDealer:car_detail' complaint.car.id %}" class="car-link" target="_blank">
                                 {{ complaint.car.brand }} {{ complaint.car.model }} ({{ complaint.car.year }})
                             </a>
                         </span>
-                        <span><i class="fas fa-check-square"></i> show public: {%if complaint.is_public == 1 %}<span class="text-primary font-weight-bold"> Yes </span>{% else %}<span class="text-danger font-weight-bold"> No</span>{%endif%}</span>
+                        <span><i class="fas fa-check-square"></i>{% trans "show public:" %}  {%if complaint.is_public == 1 %}<span class="text-primary font-weight-bold"> Yes </span>{% else %}<span class="text-danger font-weight-bold"> No</span>{%endif%}</span>
                         <span class="status-badge status-{{ complaint.status }}">
-                            {% if complaint.status == 'pending' %}Pending
-                            {% elif complaint.status == 'approved' %}Approved
-                            {% else %}Rejected{% endif %}
+                            {% if complaint.status == 'pending' %}{% trans "Pending" %} 
+                            {% elif complaint.status == 'approved' %}{% trans "Approved" %} 
+                            {% else %}{% trans "Rejected" %} {% endif %}
                         </span>
                     </div>
 
@@ -360,7 +361,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="is_public" value="{% if complaint.is_public == 1 %}0{% else %}1{% endif %}">
                             <button type="submit" class="btn btn-toggle-public">
-                                {% if complaint.is_public == 1 %}Hide from Public{% else %}Show to Public{% endif %}
+                                {% if complaint.is_public == 1 %}{% trans "Hide from Public" %} {% else %}{% trans "Show to Public" %} {% endif %}
                             </button>
                         </form>
                         {% if complaint.status != 'approved' %}
@@ -368,13 +369,13 @@
                             {% csrf_token %}
                             <input type="hidden" name="status" value="approved">
                             <input type="radio" name="is_public", value="{{complaint.is_public}}">
-                            <button type="submit" class="btn btn-approve">Approve</button>
+                            <button type="submit" class="btn btn-approve">{% trans "Approve" %} </button>
                         </form>
                         {% endif %}
                         <form method="post" action="{% url 'admin:reject_complaint' complaint.id %}" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="status" value="rejected">
-                            <button type="submit" class="btn btn-reject">Reject</button>
+                            <button type="submit" class="btn btn-reject">{% trans "Reject" %} </button>
                         </form>
                     </div>
                 </div>
@@ -383,8 +384,8 @@
 
             <div class="pagination">
                 {% if complaints.has_previous %}
-                    <a href="?page=1">&laquo; First</a>
-                    <a href="?page={{ complaints.previous_page_number }}">Previous</a>
+                    <a href="?page=1">&laquo; {% trans "First" %} </a>
+                    <a href="?page={{ complaints.previous_page_number }}">{% trans "Previous" %} </a>
                 {% endif %}
 
                 <span class="current">
@@ -392,13 +393,13 @@
                 </span>
 
                 {% if complaints.has_next %}
-                    <a href="?page={{ complaints.next_page_number }}">Next</a>
-                    <a href="?page={{ complaints.paginator.num_pages }}">Last &raquo;</a>
+                    <a href="?page={{ complaints.next_page_number }}">{% trans "Next" %} </a>
+                    <a href="?page={{ complaints.paginator.num_pages }}">{% trans "Last" %}  &raquo;</a>
                 {% endif %}
             </div>
         {% else %}
             <div class="no-complaints">
-                No complaints available
+               {% trans "No complaints available" %} 
             </div>
         {% endif %}
     </div>

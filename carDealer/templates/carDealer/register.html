@@ -1,11 +1,11 @@
 {% extends 'carDealer/base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Register</h3>
+                <h3 class="text-center">{% trans "Register" %}</h3>
             </div>
             <div class="card-body">
                 {% if messages %}
@@ -41,12 +41,12 @@
                     {% endfor %}
 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary">{% trans "Register" %}</button>
                     </div>
                 </form>
                 
                 <div class="text-center mt-3">
-                    Already have an account? <a href="{% url 'carDealer:login' %}">Login here</a>
+                    {% trans "Already have an account?" %} <a href="{% url 'carDealer:login' %}">{% trans "Login here" %}</a>
                 </div>
             </div>
         </div>
