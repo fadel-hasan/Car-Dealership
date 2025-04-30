@@ -21,7 +21,7 @@
         </div>
 
         <!-- Carousel Items -->
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="height:627px">
             {% for image in settings.get_home_images_list %}
             {% with words=settings.home_words|split:"," %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="5000">
